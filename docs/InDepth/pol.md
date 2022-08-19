@@ -17,7 +17,7 @@ transformed like this whenever it is accessed".
 
 Let's first examine more precisely how you define which data we're
 talking about.  This is done using _labels_: TypeScript decorators on
-the fields of your models.  
+the fields of your models.
 
 For instance, suppose we have a BlogComment object defined and add the "labels"
 decorator as shown below:
@@ -68,34 +68,76 @@ curl -s localhost:8080/dev/comments
 
 The `curl` command reports:
 
-```console
-[
-    {
-        "id": "a4ca3ab3-2e26-4da6-a5de-418c1e6b9b83",
-        "content": "First comment",
-        "by": "xxxxx"
-    },
-    {
-        "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
-        "content": "Second comment",
-        "by": "xxxxx"
-    },
-    {
-        "id": "adc89862-dfaa-43ab-a639-477111afc55e",
-        "content": "Third comment",
-        "by": "xxxxx"
-    },
-    {
-        "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
-        "content": "Fourth comment",
-        "by": "xxxxx"
-    }
-]
+```json
+{
+    "results": [
+        {
+            "id": "a4ca3ab3-2e26-4da6-a5de-418c1e6b9b83",
+            "content": "First comment",
+            "by": "xxxxx"
+        },
+        {
+            "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
+            "content": "Second comment",
+            "by": "xxxxx"
+        },
+        {
+            "id": "adc89862-dfaa-43ab-a639-477111afc55e",
+            "content": "Third comment",
+            "by": "xxxxx"
+        },
+        {
+            "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
+            "content": "Fourth comment",
+            "by": "xxxxx"
+        }
+    ]
+}
 ```
 
 The `pii` fields were anonymized!  It is not possible for any
 endpoint code to accidentally read `pii` data, eliminating human
 errors from the process.
+
+Another transformation you can do is omitting a field altogether.  If you modify
+the file `my-backend/policies/pol.yml` this way:
+
+```yaml title="my-backend/policies/pol.yml"
+labels:
+  - name: pii
+    transform: omit
+```
+
+your endpoints will not see the existence of any `@pii` fields:
+
+```bash
+curl -s localhost:8080/dev/comments
+```
+
+will return
+
+```json
+{
+    "results": [
+        {
+            "id": "a4ca3ab3-2e26-4da6-a5de-418c1e6b9b83",
+            "content": "First comment",
+        },
+        {
+            "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
+            "content": "Second comment",
+        },
+        {
+            "id": "adc89862-dfaa-43ab-a639-477111afc55e",
+            "content": "Third comment",
+        },
+        {
+            "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
+            "content": "Fourth comment",
+        }
+    ]
+}
+```
 
 ## Policy Exceptions
 
@@ -124,29 +166,31 @@ curl -s localhost:8080/dev/comments
 
 The `curl` command reports:
 
-```console
-[
-    {
-        "id": "a4ca3ab3-2e26-4da6-a5de-418c1e6b9b83",
-        "content": "First comment",
-        "by": "Jill"
-    },
-    {
-        "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
-        "content": "Second comment",
-        "by": "Jack"
-    },
-    {
-        "id": "adc89862-dfaa-43ab-a639-477111afc55e",
-        "content": "Third comment",
-        "by": "Jim"
-    },
-    {
-        "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
-        "content": "Fourth comment",
-        "by": "Jack"
-    }
-]
+```json
+{
+    "results": [
+        {
+            "id": "a4ca3ab3-2e26-4da6-a5de-418c1e6b9b83",
+            "content": "First comment",
+            "by": "Jill"
+        },
+        {
+            "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
+            "content": "Second comment",
+            "by": "Jack"
+        },
+        {
+            "id": "adc89862-dfaa-43ab-a639-477111afc55e",
+            "content": "Third comment",
+            "by": "Jim"
+        },
+        {
+            "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
+            "content": "Fourth comment",
+            "by": "Jack"
+        }
+    ]
+}
 ```
 
 As you can see, this endpoint now operates with the raw, untransformed
@@ -164,15 +208,21 @@ file `my-backend/policies/pol.yml` like this:
 ```yaml title="my-backend/policies/pol.yml"
 endpoints:
   - path: /comments
-    users: ^admin$
+    users: ^admin@example.com$
 ```
 
-This says that only the `admin` username can access the `/comments`
+This says that only the user `admin@example.com` can access the `/comments`
 endpoint.
+
+:::note
+We currently match `users` against the user's email -- the only field
+NextAuth guarantees to be unique.  Your feedback is welcome as we
+evolve this aspect of our product.
+:::
 
 The `endpoints` section can have any number of `path` items, each
 affecting a different path prefix.  The `users` attribute is a regular
-expression that the logged-in username must match in order to access
+expression that the logged-in user's email must match in order to access
 endpoints under the given path.
 
 `path` values may overlap, in which case longer overrides shorter.
@@ -187,8 +237,8 @@ you can set `users` to `.*`.
 
 ### Restricting Data Access to Matching User
 
-As explained in ["Tracking Logins in the
-Backend"](login#tracking-logins-in-the-backend), you can store the
+As explained in ["Accessing User Info in the
+Backend"](login#accessing-user-info-in-the-backend), you can store the
 logged-in user as a field in your entities.  Let's continue the
 example from that link here.  Please edit the file `models/models.ts`
 like this:
@@ -198,7 +248,7 @@ import { ChiselEntity } from "@chiselstrike/api"
 
 export class BlogComment extends ChiselEntity {
     content: string = "";
-    @labels("protect") author: OAuthUser;
+    @labels("protect") author: AuthUser;
 }
 ```
 
@@ -211,7 +261,7 @@ labels:
 ```
 
 The `match_login` transformation compares fields labeled with
-`protect` (if they are of OAuthUser type) to the value of
+`protect` (if they are of AuthUser type) to the value of
 `loggedInUser()`.  When the field value doesn't match, the row is
 ignored.  So in this case, when endpoints read BlogComment entities,
 they will see only the rows whose `author` matches the currently

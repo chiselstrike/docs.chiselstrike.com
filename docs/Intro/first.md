@@ -35,6 +35,8 @@ You need Node 14.18.0 or later installed to successfully run the command.
 At the moment, ChiselStrike is supported on Windows through WSL.
 Aside from that, on WSL2 you should create your project in an ext4 filesystem (like the `$HOME` folder) to support hot reloading
 of endpoints. See details [here](https://stackoverflow.com/a/70275534)
+
+You may also need [to install node.js into WSL](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl).
 :::
 
 Output will look something like this:
@@ -224,38 +226,41 @@ curl localhost:8080/dev/comments
 ```
 
 ```json
-[
-  {
-    "id": "a4ca3ab3-2e26-4da6-a5de-418c1e6b9b83",
-    "content": "First comment",
-    "by": "Jill"
-  },
-  {
-    "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
-    "content": "Second comment",
-    "by": "Jack"
-  },
-  {
-    "id": "adc89862-dfaa-43ab-a639-477111afc55e",
-    "content": "Third comment",
-    "by": "Jim"
-  },
-  {
-    "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
-    "content": "Fourth comment",
-    "by": "Jack"
-  },
-  {
-    "id": "d419e629-4304-44d5-b534-9ce446f25e9d",
-    "content": "Wrong comment",
-    "by": "Author"
-  }
-]
+{
+  "results": [
+    {
+      "id": "a4ca3ab3-2e26-4da6-a5de-418c1e6b9b83",
+      "content": "First comment",
+      "by": "Jill"
+    },
+    {
+      "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
+      "content": "Second comment",
+      "by": "Jack"
+    },
+    {
+      "id": "adc89862-dfaa-43ab-a639-477111afc55e",
+      "content": "Third comment",
+      "by": "Jim"
+    },
+    {
+      "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
+      "content": "Fourth comment",
+      "by": "Jack"
+    },
+    {
+      "id": "d419e629-4304-44d5-b534-9ce446f25e9d",
+      "content": "Wrong comment",
+      "by": "Author"
+    }
+  ]
+}
 ```
 
 ...note:
 Obviously, If we had 10,000 blog responses we wouldn't want to return them all at once.
-Pagination support for collections of large objects will be coming very soon!
+For that reason, CRUD supports pagination. For further details, please refer to
+[paging docs](Intro/endpoints.md#crud-paging)
 ...
 
 To get a specific comment, we can specify an id in the URL:
@@ -281,73 +286,74 @@ curl -g localhost:8080/dev/comments?.by=Jack
 ```
 
 ```json
-[
-  {
-    "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
-    "content": "Second comment",
-    "by": "Jack"
-  },
-  {
-    "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
-    "content": "Fourth comment",
-    "by": "Jack"
-  }
-]
+{
+  "results": [
+    {
+      "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
+      "content": "Second comment",
+      "by": "Jack"
+    },
+    {
+      "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
+      "content": "Fourth comment",
+      "by": "Jack"
+    }
+  ]
+}
 ```
 
 will return all comments where field `by` is equal to `Jack`. Our api supports other comparison operators as well. For example
 `curl -g localhost:8080/dev/comments?.by~like=Ji%25` will in our example return all comments by Jim and Jill (`%25` is encoded wildcard `%`). We support the following comparators:
 
-| symbol      | Description |
-| ----------- | ----------- |
-|             | If no comparator is specified, the filter will check for equality |
-| ~ne         | Not equal |
-| ~lt         | Lower than |
-| ~lte        | Lower than or equal |
-| ~gt         | Greater than |
-| ~gte        | Greater than or equal |
-| ~like       | Like operator - supports the same syntax as SQL Like operator |
-| ~unlike    | Equivalent to SQL's NOT LIKE |
+| symbol  | Description                                                       |
+| ------- | ----------------------------------------------------------------- |
+|         | If no comparator is specified, the filter will check for equality |
+| ~ne     | Not equal                                                         |
+| ~lt     | Lower than                                                        |
+| ~lte    | Lower than or equal                                               |
+| ~gt     | Greater than                                                      |
+| ~gte    | Greater than or equal                                             |
+| ~like   | Like operator - supports the same syntax as SQL Like operator     |
+| ~unlike | Equivalent to SQL's NOT LIKE                                      |
 
-Relationships are supported as well. Imagine that Comments's field `by` would be of type `Person` which would have a field `age`. In such a scenario, to get all comments that were written byt authors under 40 and are named John, we would do:
 
-```bash
-curl -g localhost:8080/dev/comments?.by.age~lt=40&.by.name=John
-```
+### Sorting
 
-Similarly, you can order the results by specifying the `sort` parameter:
+You can order the results by specifying the `sort` parameter:
 ```bash
 curl -g localhost:8080/dev/comments?sort=-by
 ```
 
 ```json
-[
-  {
-    "id": "adc89862-dfaa-43ab-a639-477111afc55e",
-    "content": "Third comment",
-    "by": "Jim"
-  },
-  {
-    "id": "a4ca3ab3-2e26-4da6-a5de-418c1e6b9b83",
-    "content": "First comment",
-    "by": "Jill"
-  },
-  {
-    "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
-    "content": "Fourth comment",
-    "by": "Jack"
-  },
-  {
-    "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
-    "content": "Second comment",
-    "by": "Jack"
-  },
-  {
-    "id": "d419e629-4304-44d5-b534-9ce446f25e9d",
-    "content": "Wrong comment",
-    "by": "Author"
-  }
-]
+{
+  "results": [
+    {
+      "id": "adc89862-dfaa-43ab-a639-477111afc55e",
+      "content": "Third comment",
+      "by": "Jim"
+    },
+    {
+      "id": "a4ca3ab3-2e26-4da6-a5de-418c1e6b9b83",
+      "content": "First comment",
+      "by": "Jill"
+    },
+    {
+      "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
+      "content": "Fourth comment",
+      "by": "Jack"
+    },
+    {
+      "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
+      "content": "Second comment",
+      "by": "Jack"
+    },
+    {
+      "id": "d419e629-4304-44d5-b534-9ce446f25e9d",
+      "content": "Wrong comment",
+      "by": "Author"
+    }
+  ]
+}
 ```
 
 Note the minus `-` sign in front of the field name `by`. It signifies a descending sort ordering.
@@ -363,23 +369,25 @@ curl -g localhost:8080/dev/comments?sort=by&limit=3
 ```
 
 ```json
-[
+{
+  "results": [
     {
-    "id": "d419e629-4304-44d5-b534-9ce446f25e9d",
-    "content": "Wrong comment",
-    "by": "Author"
-  },
-  {
-    "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
-    "content": "Second comment",
-    "by": "Jack"
-  },
+      "id": "d419e629-4304-44d5-b534-9ce446f25e9d",
+      "content": "Wrong comment",
+      "by": "Author"
+    },
     {
-    "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
-    "content": "Fourth comment",
-    "by": "Jack"
-  },
-]
+      "id": "fed312d7-b36b-4f34-bb04-fba327a3f440",
+      "content": "Second comment",
+      "by": "Jack"
+    },
+      {
+      "id": "5bfef47e-371b-44e8-a2dd-88260b5c3f2c",
+      "content": "Fourth comment",
+      "by": "Jack"
+    },
+  ]
+}
 ```
 
 To skip the first `n` elements, you can use the `offset` parameter:
@@ -388,13 +396,15 @@ curl -g localhost:8080/dev/comments?sort=by&offset=4
 ```
 
 ```json
-[
-  {
-    "id": "adc89862-dfaa-43ab-a639-477111afc55e",
-    "content": "Third comment",
-    "by": "Jim"
-  },
-]
+{
+  "results": [
+    {
+      "id": "adc89862-dfaa-43ab-a639-477111afc55e",
+      "content": "Third comment",
+      "by": "Jim"
+    },
+  ]
+}
 ```
 
 ...note:
@@ -404,6 +414,40 @@ If both `limit` and `offset` are used, they are applied in traditional order - w
 ...note:
 The order in which you specify CRUD parameters *does not* matter. For example `?sort=by&limit=2&sort=content` will yield the same results as `?sort=content&limit=2`.
 ...
+
+### Relationships
+Relationships are supported as well. Let's modify our models and add an additional `Person` entity:
+
+```typescript title="my-backend/models/Person.ts"
+export class Person extends ChiselEntity {
+    name: string = "";
+    age: number = 0;
+}
+```
+
+```typescript title="my-backend/models/BlogComment.ts"
+export class BlogComment extends ChiselEntity {
+    content: string = "";
+    by: Person;
+}
+```
+
+In such a scenario, to get all comments that were written byt authors under 40 and are named John, we would do:
+
+```bash
+curl -g localhost:8080/dev/comments?.by.age~lt=40&.by.name=John&sort=by.name
+```
+
+### Arrays
+We currently support arrays of primitive types (`string`, `number`, `boolean`) and nesting of arrays (`[][]number`, `[][][]string` etc.). For example we could add a keywords array to our `BlogPost`:
+
+```typescript title="my-backend/models/BlogPost.ts"
+export class BlogPost extends ChiselEntity {
+    text: string = "";
+    by: Person;
+    keywords: []string = [];
+}
+```
 
 ## PUT and DELETE
 
