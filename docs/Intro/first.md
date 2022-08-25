@@ -92,10 +92,8 @@ To make our endpoint for "/dev/comments", we create a TypeScript file
 in the `my-backend/endpoints` directory.  Here is one:
 
 ```typescript title="my-backend/endpoints/comments.ts"
-import { responseFromJson } from "@chiselstrike/api"
-
-export default function chisel(_req) {
-    return responseFromJson("Comments go here!");
+export default async function (req: Request) {
+    return "Comments go here!";
 }
 ```
 
@@ -181,7 +179,7 @@ That comes next!
 
 We're big fans of [REST](https://en.wikipedia.org/wiki/Representational_state_transfer), but don't strictly require it in ChiselStrike.
 
-If you're not familiar, REST is a set of practices that describes how a URL endpoint can handle various HTTP verbs
+If you're not familiar, REST is a set of practices that describes how a URL endpoint can handle various HTTP methods
 to provide ways to manipulate a collection of entities: create, read,
 update, and delete ([CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)).
 
@@ -282,7 +280,7 @@ curl localhost:8080/dev/comments/a4ca3ab3-2e26-4da6-a5de-418c1e6b9b83
 The API allows you to filter by object properties. For example:
 
 ```bash
-curl -g localhost:8080/dev/comments?.by=Jack
+curl -g "localhost:8080/dev/comments?.by=Jack"
 ```
 
 ```json
@@ -302,8 +300,8 @@ curl -g localhost:8080/dev/comments?.by=Jack
 }
 ```
 
-will return all comments where field `by` is equal to `Jack`. Our api supports other comparison operators as well. For example
-`curl -g localhost:8080/dev/comments?.by~like=Ji%25` will in our example return all comments by Jim and Jill (`%25` is encoded wildcard `%`). We support the following comparators:
+will return all comments where field `by` is equal to `Jack`. Our API supports other comparison operators as well. For example
+`curl -g "localhost:8080/dev/comments?.by~like=Ji%25"` will in our example return all comments by Jim and Jill (`%25` is encoded wildcard `%`). We support the following comparators:
 
 | symbol  | Description                                                       |
 | ------- | ----------------------------------------------------------------- |
@@ -321,7 +319,7 @@ will return all comments where field `by` is equal to `Jack`. Our api supports o
 
 You can order the results by specifying the `sort` parameter:
 ```bash
-curl -g localhost:8080/dev/comments?sort=-by
+curl -g "localhost:8080/dev/comments?sort=-by"
 ```
 
 ```json
@@ -365,7 +363,7 @@ When using the ascending ordering with prefix `+`, your HTTP library may do URL 
 
 To limit the result set to only the first `n` elements, you can use the the `limit` parameter:
 ```bash
-curl -g localhost:8080/dev/comments?sort=by&limit=3
+curl -g "localhost:8080/dev/comments?sort=by&limit=3"
 ```
 
 ```json
@@ -392,7 +390,7 @@ curl -g localhost:8080/dev/comments?sort=by&limit=3
 
 To skip the first `n` elements, you can use the `offset` parameter:
 ```bash
-curl -g localhost:8080/dev/comments?sort=by&offset=4
+curl -g "localhost:8080/dev/comments?sort=by&offset=4"
 ```
 
 ```json
@@ -435,17 +433,17 @@ export class BlogComment extends ChiselEntity {
 In such a scenario, to get all comments that were written byt authors under 40 and are named John, we would do:
 
 ```bash
-curl -g localhost:8080/dev/comments?.by.age~lt=40&.by.name=John&sort=by.name
+curl -g "localhost:8080/dev/comments?.by.age~lt=40&.by.name=John&sort=by.name"
 ```
 
 ### Arrays
-We currently support arrays of primitive types (`string`, `number`, `boolean`) and nesting of arrays (`[][]number`, `[][][]string` etc.). For example we could add a keywords array to our `BlogPost`:
+We currently support arrays of primitive types (`string`, `number`, `boolean`) and nesting of arrays (`number[][]`, `string[][][]` etc.). For example we could add a keywords array to our `BlogPost`:
 
 ```typescript title="my-backend/models/BlogPost.ts"
 export class BlogPost extends ChiselEntity {
     text: string = "";
     by: Person;
-    keywords: []string = [];
+    keywords: string[] = [];
 }
 ```
 
@@ -468,7 +466,7 @@ curl -X DELETE localhost:8080/dev/comments/d419e629-4304-44d5-b534-9ce446f25e9d
 Alternatively, you can delete by specifying the same filters as for GET method. So for example, to delete all Comments written by Jack, we can write:
 
 ```
-curl -X DELETE localhost:8080/dev/comments/?.by=Jack
+curl -X DELETE "localhost:8080/dev/comments/?.by=Jack"
 ```
 
 🎉 Ta-da! You're a pro now!  There's a basic simple CRUD RESTful API, right out of the box.
