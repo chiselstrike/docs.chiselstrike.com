@@ -1,6 +1,6 @@
 # More About Endpoints
 
-In this section we'll show how to move beyond simple CRUD requests, as shown in [Getting Started](Intro/first.md).
+In this section we'll show how to move beyond simple CRUD requests, as shown in the [Getting started tutorial](/tutorials/first).
 
 # Customizing CRUD Further
 
@@ -36,7 +36,7 @@ export default crud(
 );
 ```
 
-You may also be interested in the [Authentication](InDepth/login.md) chapter.
+You may also be interested in the [Authentication](/reference/login) chapter.
 
 ## Full Custom Endpoints
 

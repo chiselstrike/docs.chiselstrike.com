@@ -83,7 +83,7 @@ End point defined: /dev/hello
 ```
 
 ...tip:
-For more about `chisel` command usage, please see [the CLI reference](InDepth/chisel-cli.md) or run `chisel --help`.
+For more about `chisel` command usage, please see [the CLI reference](/reference/chisel-cli) or run `chisel --help`.
 ...
 
 ## Our First Endpoint
@@ -214,7 +214,7 @@ We always use UUIDs rather than integers.
 
 :::tip
 Right now you are testing only locally, but you'll want to think about restricting access to some endpoints in production.
-We'll talk about security more in the [Policy](InDepth/pol.md) section.
+We'll talk about security more in the [Policy](/reference/pol) section.
 :::
 
 Now that we've inserted some objects, lets read them back! Our `crud` function also registers a `GET` handler, which is already available!
@@ -258,7 +258,7 @@ curl localhost:8080/dev/comments
 ...note:
 Obviously, If we had 10,000 blog responses we wouldn't want to return them all at once.
 For that reason, CRUD supports pagination. For further details, please refer to
-[paging docs](Intro/endpoints.md#crud-paging)
+[paging docs](/reference/endpoints#crud-paging)
 ...
 
 To get a specific comment, we can specify an id in the URL:
