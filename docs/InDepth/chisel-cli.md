@@ -15,7 +15,6 @@ Overview of commands
 * [`help`](#chisel-help) - print help
 * [`init`](#chisel-init) - create a new project in current directory
 * [`new`](#chisel-new) - create a new project
-* [`restart`](#chisel-restart) - restart server
 * [`start`](#chisel-start) - start server
 * [`status`](#chisel-status) - show server status
 * [`wait`](#chisel-wait) - wait for server to start
@@ -37,7 +36,7 @@ TODO
 
 ### `chisel describe`
 
-The `chisel describe` command displays the current state of the running ChiselStrike server: models, endpoints, and policies.
+The `chisel describe` command displays the current state of the running ChiselStrike server: models, routes, and policies.
 
 ### `chisel dev`
 
@@ -85,17 +84,6 @@ Created ChiselStrike project in hello
 * [`dev`](#chisel-dev)
 * [`apply`](#chisel-dev)
 
-### `chisel restart`
-
-Restarts the ChiselStrike server.
-
-**Example:**
-
-```
-$ chisel restart
-Server restarted successfully.
-```
-
 ### `chisel start`
 
 Starts the ChiselStrike server.
@@ -131,7 +119,7 @@ The CLI parses a manifest file `Chisel.toml`, which has the following format:
 
 ```toml
 models = ["models"]
-endpoints = ["endpoints"]
+routess = ["routes"]
 policies = ["policies"]
 ```
 
@@ -141,7 +129,7 @@ The `chiseld` program is the ChiselStrike server daemon. For development purpose
 
 #### `--api-listen-addr [ADDR]`
 
-The API listen address of the server. This is the address that servers ChiselStrike endpoints.
+The API listen address of the server. This is the address that serves ChiselStrike API.
 
 #### `--data-db-uri [URI]`
 
