@@ -1,6 +1,6 @@
 # More About Endpoints
 
-In this section we'll show how to move beyond simple CRUD requests, as shown in the [Getting started tutorial](/tutorials/first).
+In this section we'll show how to move beyond simple CRUD requests, as shown in the [Getting started tutorial](/tutorials/getting-started/).
 
 # Customizing CRUD Further
 
@@ -127,7 +127,7 @@ error checking in this example.
 With this endpoint example, we're now getting to know ChiselStrike's API and runtime better. Notice how
 we were able to parse the request under `POST` with our own custom validation, and then use
 the `build` API to construct an object that is then persisted with `save`.  We'll explain the use of the
-data model more in [Data Access](Intro/data-access).
+data model more in [Data Access](./data-access).
 
 Finally, notice the `responseFromJson` convenience method, which takes a JavaScript object and serializes it into a
 `Response` ready to be returned.

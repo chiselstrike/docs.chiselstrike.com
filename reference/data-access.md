@@ -66,9 +66,11 @@ and we'll get the following response:
 {"username": "alice", "email": "alice@example.com", "city": "Cambridge", "id": "Created user alice with id 72325865-1887-4604-a127-025919ca281c" }
 ```
 
-As discussed in the [Getting started tutorial](/tutorials/first), the ChiselStrike runtime assigns an `id` to your entity automatically upon `save()`. If you want to _update_ your entity, you need know its `id`.  The ID can be returned when you create the object, or you can query for it.
+As discussed in the [Getting started tutorial](/tutorials/getting-started/), the
+ChiselStrike runtime assigns an `id` to your entity automatically upon `save()`.
+If you want to _update_ your entity, you need know its `id`.  The ID can be
+returned when you create the object, or you can query for it.
 
-<!-- FIXME: need a Section "Updating Objects" -->
 <!-- FIXME: need a Section "Deleting Objects" -->
 
 Still, you are not technically limited to making every endpoint follow REST principles by using ids. For example, you could write the following 'update' endpoint that recieves the same JSON, but finds the `User` entity based on the provided `username`:

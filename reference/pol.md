@@ -6,7 +6,7 @@ storage.  Although the policy language is currently limited, it is set
 to rapidly expand in the immediate future.
 
 Examples used in this chapter build on the `my-backend` files from the
-[Getting started tutorial](/tutorials/first).
+[Getting started tutorial](/tutorials/getting-started/).
 
 ## Data Transformation
 
