@@ -6,6 +6,8 @@ const sidebars = {
       id: 'index',
       label: 'Introduction'
     },
+    'entity-crud-api',
+    'filter-order-limit-query',
     'endpoints',
     'data-access',
     'streaming',
