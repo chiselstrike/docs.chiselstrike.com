@@ -29,7 +29,7 @@ When you're ready to move into production, the Chiselstrike hosted service deplo
 When hosting your apps on the ChiselStrike platform, we'll handle all scaling, upgrade, and data layer concerns.  There's no need for any "devops", 
 cloud architectures, scaling, monitoring, automation, or security work!
 
-Interested? The service itself is currently in a private beta. [Request an invite here.](https://forms.gle/cwMghfrXz1ZPiWKK6)
+Interested? The service itself is currently public beta. [Sign up here.](https://chiselstrike.com)
 
 ## Easy Local Development & Testing
 
