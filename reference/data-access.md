@@ -1,7 +1,5 @@
 # Data Access
 
-We're already previewed working with data in [Getting Started](first). Let's explain the data system a bit more.
-
 ## Defining Models
 
 Models represent the domain objects of your application.
@@ -68,9 +66,11 @@ and we'll get the following response:
 {"username": "alice", "email": "alice@example.com", "city": "Cambridge", "id": "Created user alice with id 72325865-1887-4604-a127-025919ca281c" }
 ```
 
-As discussed in the [Getting Started](Intro/first.md) section, the ChiselStrike runtime assigns an `id` to your entity automatically upon `save()`. If you want to _update_ your entity, you need know its `id`.  The ID can be returned when you create the object, or you can query for it.
+As discussed in the [Getting started tutorial](/tutorials/getting-started/), the
+ChiselStrike runtime assigns an `id` to your entity automatically upon `save()`.
+If you want to _update_ your entity, you need know its `id`.  The ID can be
+returned when you create the object, or you can query for it.
 
-<!-- FIXME: need a Section "Updating Objects" -->
 <!-- FIXME: need a Section "Deleting Objects" -->
 
 Still, you are not technically limited to making every endpoint follow REST principles by using ids. For example, you could write the following 'update' endpoint that recieves the same JSON, but finds the `User` entity based on the provided `username`:
@@ -239,6 +239,6 @@ In this example, we delete an user by their email address.
 ## See Also: Cursors
 
 Now you've seen all the basics about data-access and hope you are enjoying not having to write any SQL or deal with migrations or anything like that!
-We have some additional options available. When you feel like exploring, read [Cursors](InDepth/cursors.md) for how to build queries in very powerful composable ways.
+We have some additional options available. When you feel like exploring, read [Cursors](/reference/cursors) for how to build queries in very powerful composable ways.
 
 

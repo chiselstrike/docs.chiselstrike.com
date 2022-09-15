@@ -4,9 +4,150 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+/** @type {import('@docusaurus/plugin-content-docs').Options} */
+const aboutPluginOptions = {
+  id: 'home',
+  path: 'home',
+  routeBasePath: '/',
+  sidebarPath: require.resolve('./home/sidebars.js'),
+}
+
+/** @type {import('@docusaurus/plugin-content-docs').Options} */
+const tutorialsPluginOptions = {
+  id: 'tutorials',
+  path: 'tutorials',
+  routeBasePath: 'tutorials',
+  sidebarPath: require.resolve('./tutorials/sidebars.js'),
+}
+
+/** @type {import('@docusaurus/plugin-content-docs').Options} */
+const examplesPluginOptions = {
+  id: 'examples',
+  path: 'examples',
+  routeBasePath: 'examples',
+  sidebarPath: require.resolve('./examples/sidebars.js'),
+}
+
+/** @type {import('@docusaurus/plugin-content-docs').Options} */
+const referencePluginOptions = {
+  id: 'reference',
+  path: 'reference',
+  routeBasePath: 'reference',
+  sidebarPath: require.resolve('./reference/sidebars.js'),
+  // includeCurrentVersion: false,  // disables "next", forces version into path
+}
+
+/** @type {import('@docusaurus/theme-classic').Options} */
+const themeOptions = {
+  customCss: require.resolve('./src/css/custom.css'),
+}
+
+/** @type {import('@docusaurus/theme-common').UserThemeConfig} */
+const themeConfig = {
+  navbar: {
+    title: 'ChiselStrike',
+    logo: {
+      alt: 'ChiselStrike documentation',
+      src: 'img/logo.svg',
+    },
+    items: [
+      {
+        type: 'doc',
+        docsPluginId: 'home',
+        docId: 'index',
+        label: 'Home',
+        position: 'left',
+      },
+      {
+        type: 'doc',
+        docsPluginId: 'tutorials',
+        docId: 'index',
+        label: 'Tutorials',
+        position: 'left',
+      },
+      {
+        type: 'doc',
+        docsPluginId: 'examples',
+        docId: 'index',
+        label: 'Examples',
+        position: 'left',
+      },
+      {
+        type: 'doc',
+        docsPluginId: 'reference',
+        docId: 'index',
+        label: 'Reference',
+        position: 'left',
+      },
+      // {
+      //   type: 'docsVersionDropdown',
+      //   docsPluginId: 'reference',
+      //   position: 'left',
+      // },
+      {
+        href: 'https://chiselstrike.com',
+        label: 'Website',
+        position: 'right',
+      },
+      {
+        href: 'https://github.com/chiselstrike',
+        label: 'GitHub',
+        position: 'right',
+      },
+    ],
+  },
+  footer: {
+    style: 'dark',
+    links: [
+      {
+        title: 'Links',
+        items: [
+          {
+            label: 'Website',
+            to: 'https://chiselstrike.com',
+          },
+          {
+            label: 'Documentation',
+            to: '/',
+          },
+        ],
+      },
+      {
+        title: 'Community',
+        items: [
+          {
+            label: 'Discord',
+            href: 'https://discord.gg/GHNN9CNAZe',
+          },
+          {
+            label: 'LinkedIn',
+            href: 'https://www.linkedin.com/company/chiselstrike/',
+          },
+        ],
+      },
+      {
+        title: 'More',
+        items: [
+          {
+            label: 'GitHub',
+            href: 'https://github.com/chiselstrike',
+          },
+        ],
+      },
+    ],
+    copyright: `Copyright © ${new Date().getFullYear()} ChiselStrike, Inc. Built with Docusaurus.`,
+  },
+  prism: {
+    // @ts-ignore
+    theme: lightCodeTheme,
+    // @ts-ignore
+    darkTheme: darkCodeTheme,
+  },
+}
+
 /** @type {import('@docusaurus/types').Config} */
-const config = {
-  title: 'ChiselStrike',
+const docusaurusConfig = {
+  title: 'ChiselStrike documentation',
   tagline: 'Automated Serverless Backends',
   url: 'https://docs.chiselstrike.com',
   baseUrl: '/',
@@ -16,88 +157,15 @@ const config = {
   organizationName: 'ChiselStrike', // Usually your GitHub org/user name.
   projectName: 'chiselstrike', // Usually your repo name.
 
-  presets: [
-    [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
-        docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          routeBasePath: '/',
-          // Uncomment this if you want to have an Edit button on each page
-          // editUrl: 'https://github.com/chiselstrike/chiselstrike/edit/main/website/',
-        },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      }),
-    ],
+  plugins: [
+    [ 'content-docs', aboutPluginOptions ],
+    [ 'content-docs', tutorialsPluginOptions ],
+    [ 'content-docs', examplesPluginOptions ],
+    [ 'content-docs', referencePluginOptions ],
+    [ '@docusaurus/theme-classic', themeOptions ],
   ],
 
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      navbar: {
-        title: 'Docs',
-        logo: {
-          alt: 'ChiselStrike docs',
-          src: 'img/logo.svg',
-        },
-        items: [
-          { to: 'https://www.chiselstrike.com', label: 'Website', position: 'left' },
-          {
-            href: 'https://github.com/chiselstrike',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Links',
-            items: [
-              {
-                label: 'Website',
-                to: 'https://www.chiselstrike.com',
-              },
-              {
-                label: 'Docs',
-                to: '/',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Discord',
-                href: 'https://discord.gg/GHNN9CNAZe',
-              },
-              {
-                label: 'Linkedin',
-                href: 'https://www.linkedin.com/company/chiselstrike/',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'GitHub',
-                href: 'https://github.com/chiselstrike',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} ChiselStrike, Inc. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
-    }),
+  themeConfig: themeConfig
 };
 
-module.exports = config;
+module.exports = docusaurusConfig;

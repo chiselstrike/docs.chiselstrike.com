@@ -1,7 +1,3 @@
----
-# Settings the slug to / defines the home
-slug: /
----
 # Welcome to ChiselStrike!
 
 We're so happy you're here! ChiselStrike is a new platform for developing and hosting data services. If you 
