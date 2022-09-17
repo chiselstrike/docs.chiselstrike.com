@@ -4,43 +4,55 @@ pagination_next: null
 
 # Welcome to ChiselStrike!
 
-We're so happy you're here! ChiselStrike is a new platform for developing and hosting data services. If you 
-want to get a new frontend working with live data in production, ChiselStrike is going to be the fastest way.
+ChiselStrike is a code-driven solution that enables you to quickly build and
+deploy your application’s backend. Use TypeScript to define your data model, and
+we will create and a scalable, serverless, secure backend. Build and test
+locally with our CLI, then deploy to our cloud simply by pushing to a GitHub
+branch.
 
-All apps need data, but building services around them often involves crafting tedious boilerplate
-code, pondering schema design, query optimization, and laying out repetitive server side business logic. 
-All of this gets in the way of building a compelling user-focused application and getting it out the door. 
+ChiselStrike integrates easily with [Gatsby][gatsby], [Next.js][nextjs], or any
+of your preferred Jamstack frameworks. You can also use it standalone to build a
+backend for any application.
 
-ChiselStrike enables you to remove complexity from full stack development - it creates your entire persistent layer 
-(database, APIs, authentication) from simple TypeScript models. As a developer, you're off flying quickly, 
-with half the code or less, and can devote most of your time to building compelling presentation layers.
+## Features
 
-ChiselStrike integrates easily with Gatsby, Next.js, or any of your favorite frameworks.
+- Automatic generation of a fully-functional CRUD API. You just define the
+  entity model with TypeScript classes. The API can be customized to meet
+  specific needs.
+- Create your own API endpoints with custom code.
+- End user authentication supported with [NextAuth.js][nextauth].
+- Data policy definitions with field- and user-level granularity.
 
-<!-- # FIXME: visuals would be nice here to break up the text -->
+## Develop locally, deploy globally
 
-## Examples
+Local development is facilitited with the ChiselStrike CLI, which runs a server
+`chiseld` on your machine. When you are satisfied with the way your backend
+works locally, you can configure ChiselStrike to observe a GitHub repository,
+and simply push the project code to your production branch to deploy it.
 
-* Do you need a simple CRUD application that just allows you to POST to and GET from multiple endpoints? We've got you covered!
-* Want to run some complex business logic in the API layer? No problem, it's fully customizable!
-* Want to connect to other microservices? A bit more Typescript and... done!
-* Need to protect confidential data and ensure consistent security? Our policy language will make this incredibly simple.
+ChiselStrike's managed service handles scaling, upgrades, security, and data
+persistence. You invest nothing into traditional DevOps activities.
 
-## All-In-One Backend Hosting
+:::note
 
-When you're ready to move into production, the Chiselstrike hosted service deploys your backends directly from your GitHub repositories.
+The ChiselStrike managed backend service is currently in beta.
 
-When hosting your apps on the ChiselStrike platform, we'll handle all scaling, upgrade, and data layer concerns.  There's no need for any "devops", 
-cloud architectures, scaling, monitoring, automation, or security work!
+:::
 
-Interested? The service itself is currently public beta. [Sign up here.](https://chiselstrike.com)
+## Ready to get started?
 
-## Easy Local Development & Testing
+- We recommend beginning with the [Getting Started tutorial][gs-tutorial], which
+  provides step-by-step instructions to build and deploy your first ChiselStrike
+  project.
+- Read the [reference documentation][reference] for details on how the product
+  works.
+- Join our [Discord][discord] to chat with the team and others using
+  ChiselStrike.
 
-For development, you can install ChiselStrike locally, allowing for easy local development and testing. This is a great way
-to try out all of the features, and it works 100% offline!  When  you're done, host the backend on our fully managed service, and
-use your favorite platform to deliver the frontend.
 
-## Ready To Get Started?
-
-Throughout the next chapters, we'll show you how things work!
+[gatsby]: https://www.gatsbyjs.com/
+[nextjs]: https://nextjs.org/
+[nextauth]: https://next-auth.js.org/
+[gs-tutorial]: /tutorials/getting-started/
+[reference]: /reference/
+[discord]: https://discord.gg/GHNN9CNAZe
