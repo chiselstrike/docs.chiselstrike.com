@@ -21,11 +21,8 @@ const sidebars = {
       label: 'Reference',
       href: '/reference/'
     },
-    {
-      type: 'category',
-      label: 'Community',
-      items: [ 'community/feedback', 'community/known-issues', 'community/discord' ]
-    },
+    "ongoing-work",
+    "community",
   ],
 };
   
