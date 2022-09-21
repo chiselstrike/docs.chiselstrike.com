@@ -1,4 +1,9 @@
 {
     "rewrap.autoWrap.enabled": true,
-    "rewrap.wrappingColumn": 80
+    "rewrap.wrappingColumn": 80,
+    "cSpell.ignoreWords": [
+        "chiselstrike",
+        "chiseld",
+        "prerender"
+    ]
 }

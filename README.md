@@ -24,11 +24,15 @@ own `sidebars.js` configuration that determines its structure.
 
 ### Authoring conventions
 
-- Prefre to use VSCode with the [Rewrap][rewrap] extension. This repo configures
+- Prefer to use VSCode with the [Rewrap][rewrap] extension. This repo configures
   Rewrap at 80 columns. While Rewrap automatically wraps text while typing, it
   will not in all cases. Use the ALT-q (or CMD-q on MacOS) to format the
   paragraph of text where the cursor is. *Please do not let lines get longer
   than 80 characters except where necessary.*
+
+- You may wish to use the [Code Spell Checker][cspell] extension with VSCode for
+  spell checking. It is already configured for use in this repo with product
+  words to ignore for checking.
 
 - We use a formal tech writing style for all technical content. Don't be
   surprised if someone gives you a lot of style feedback in your pull request!
