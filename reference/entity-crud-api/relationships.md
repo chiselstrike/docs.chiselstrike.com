@@ -111,5 +111,28 @@ instance property after the referring entity has been created. In the above
 example, the value of `author` cannot be updated to a new `BlogAuthor` after the
 `BlogPost` has been created. This functionality may change in the future.
 
+## Filter using properties of a referred instance {#filter}
+
+You can filter entities using the properties of their related entities. Compose
+the query string filter parameter [as usual][filter-results], prefixing the name
+of the referring property with a period, then append the name of the referred
+entity property to the referring entity property, also prefixed by a period.
+
+To query for all `BlogPost` instances with an `BlogAuthor` whose `name` is
+"Jeri":
+
+```bash
+curl "http://host/dev/blog-posts?.author.name=Jeri"
+```
+
+For the purpose of filtering by property, the generated ID of the referred
+entity is `id`. To query for all BlogPost instances with a BlogAuthor identified
+by its generated ID:
+
+```bash
+curl "http://host/dev/blog-posts?.author.id=[GENERATED-ID]"
+```
+
 
 [eager loading]: ../data-modeling/relationships#eager-loading
+[filter-results]: ./filter-order-limit-query#filter-results
