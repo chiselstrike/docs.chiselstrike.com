@@ -28,7 +28,7 @@ export default BlogPost.crud();
 We will use the general terms "referencing entity" to describe `BlogPost` and
 "referred entity" to describe `BlogAuthor`.
 
-## Adding a new referred entity
+## Add a new referred entity {#add}
 
 To specify a new `BlogAuthor` entity instance to be created along with a new
 `BlogPost` instance, nest the contents of the `BlogAuthor` entity into a JSON
@@ -58,7 +58,7 @@ using those IDs.
 
 ```bash
 # Get the BlogAuthor instance
-curl http://host/dev/blog-authors/[GENERATED-AUTHOR-ID]
+curl "http://host/dev/blog-authors/[GENERATED-AUTHOR-ID]"
 ```
 
 ```json
@@ -71,7 +71,7 @@ curl http://host/dev/blog-authors/[GENERATED-AUTHOR-ID]
 
 ```bash
 # Get the BlogPost instance
-curl http://host/dev/blog-authors/[GENERATED-POST-ID]
+curl "http://host/dev/blog-authors/[GENERATED-POST-ID]"
 ```
 
 ```json
@@ -95,7 +95,7 @@ This eager loading behavior may change in a future version of ChiselStrike.
 
 :::
 
-## Deleting a referring instance
+## Delete a referring instance {#delete}
 
 If a referred entity is created at the same time as a referring entity as
 illustrated in the prior section, deleting the referring entity will not cause
@@ -104,7 +104,7 @@ the referred entity to be deleted.
 Specifically, in the above case, deleting a `BlogPost` will not cause the
 `BlogAuthor` to be deleted along with it.
 
-## Replacing a referred instance
+## Replace a referred instance {#replace}
 
 The ChiselStrike CRUD API currently does not support changing a referred
 instance property after the referring entity has been created. In the above
