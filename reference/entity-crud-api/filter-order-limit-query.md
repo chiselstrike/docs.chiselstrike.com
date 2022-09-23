@@ -119,6 +119,11 @@ one for each condition, and merge the results in your app's code.
 
 :::
 
+### Filter using entity relationship {#filter-relationships}
+
+You can filter referring entities using properties of their related entity. See
+[this section][filter-relationships] for details.
+
 ## Ordering query results {#order}
 
 You can sort the results of query using the `sort` parameter in the query
@@ -149,3 +154,5 @@ parameter in the query string. The default limit is 1000.
 # Get the last 5 entities determined by the publishedAt property
 curl "https://host/dev/entity?sort=-publishedAt&limit=5"
 ```
+
+[filter-relationships]: ./relationships#filter
