@@ -11,16 +11,8 @@ Change to the directory where you want to create the project. Run the following
 command:
 
 ```bash
-npx create-chiselstrike-app@0.12.1 my-backend
+npx create-chiselstrike-app@0.13.1 my-backend
 ```
-
-:::warning
-
-This tutorial requires version 0.12.1 even though the latest version of the SDK
-is 0.13. Some features in the 0.13 SDK are currently not supported in the
-ChiselStrike managed service.
-
-:::
 
 :::tip
 
@@ -49,15 +41,16 @@ The command will create a project structure like this:
 ```
 my-backend
 ├── Chisel.toml
+├── Dockerfile
 ├── README.md
-├── endpoints
-│   └── hello.ts
 ├── events
 ├── models
 ├── node_modules
 ├── package-lock.json
 ├── package.json
 ├── policies
+├── routes
+│   └── hello.ts
 └── tsconfig.json
 ```
 
@@ -65,7 +58,7 @@ Take a quick look at the parts of the project that are not standard nodejs:
 
 - **Chisel.toml**: This file contains the ChiselStrike configuration. For this
   tutorial, you will not modify this file.
-- **endpoints, events, models, policies**: ChiselStrike uses the code in these
+- **events, models, policies, routes**: ChiselStrike uses the code in these
   directories for your backend. You will populate these folders with code for
   ChiselStrike to run.
 - **tsconfig.json**: This file contains the project's TypeScript configuration.
@@ -79,10 +72,10 @@ script are already added to the project.
         "dev": "chisel dev"
     },
     "dependencies": {
-        "@chiselstrike/api": "0.12.1",
+        "@chiselstrike/api": "0.13.1",
     },
     "devDependencies": {
-        "@chiselstrike/cli": "0.12.1"
+        "@chiselstrike/cli": "0.13.1"
     }
 ```
 

@@ -51,7 +51,8 @@ the prior step:
 
 ## Filter on a single entity property
 
-To query for only posts that were authored by "Glauber", you can use a filter on the `author` property:
+To query for only posts that were authored by "Glauber", you can use a filter on
+the `author` property:
 
 ```bash
 curl "localhost:8080/dev/posts?.author=Glauber"
@@ -85,7 +86,7 @@ tutorial, we will not have occasion to escape any keys or values for simplicity.
 
 :::
 
-## Filter on mutiple entity properties
+## Filter on multiple entity properties
 
 You can specify multiple filters by combining them as mutiple query string
 parameters in the query string. Parameters are separated by an ampersand (`&`),

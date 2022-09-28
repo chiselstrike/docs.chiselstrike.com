@@ -24,14 +24,16 @@ The output will look similar to this:
 
 For any question, concerns, or early feedback, please contact us via email or Discord!
 
-[date-time] INFO - RPC is ready. URL: 127.0.0.1:50051
-[date-time] INFO - ChiselStrike is ready 🚀 - URL: http://localhost:8080
-End point defined: /dev/hello
+[date-time] INFO - ChiselStrike server is ready 🚀
+[date-time] INFO - URL: http://127.0.0.1:8080
+[date-time] INFO - URL: http://[::1]:8080
+[date-time] INFO - Version "__chiselstrike" is ready
+[date-time] INFO - Version "dev" is ready
 ```
 
-From the output, you can see that `chiseld` runs with a base URL of
-http://localhost:8080.  You will use this to access any endpoints and REST APIs
-while you build locally.
+From the output, you can see that `chiseld` runs with a base endpoint URL of
+http://127.0.0.1:8080 (localhost).  You will use this to access any routes and
+REST APIs while you build locally.
 
 :::tip
 
@@ -41,30 +43,34 @@ complete this tutorial.
 
 :::
 
-The generated project includes a sample `hello` endpoint in the endpoints
-directory:
+The generated project includes a sample `hello` route in the routes directory:
 
-```ts title="my-backend/endpoints/hello.ts"
-export default async function (req: Request): Promise<string> {
-    return await req.text() || "hello world";
-}
+```ts title="my-backend/routes/hello.ts"
+import { ChiselRequest, RouteMap } from "@chiselstrike/api";
+
+export default new RouteMap()
+    .get("/", function (): string {
+        return "hello world";
+    })
+    .post("/", async function (req: ChiselRequest): Promise<unknown> {
+        return await req.json();
+    });
 ```
 
-Endpoints allow you to write code to handle HTTP requests at a URL specific
-path.
+Routes allow you to write code to handle HTTP requests at a URL specific path.
+The above code defines a route that handles both HTTP GET and POST requests.
 
-You can use curl to invoke the endpoint.  It will return "hello world", or
-whatever payload it received from the request. Open another shell and run the
-command:
+You can use curl to invoke the route with a GET request. Open another shell and
+run the command:
 
 ```bash
 curl localhost:8080/dev/hello
 ```
 
-The endpoint return the default "hello world" string as JSON:
+The route responds with a plain text "hello world":
 
-```json
-"hello world"
+```
+hello world
 ```
 
-In the next step, we'll discuss endpoints in more detail.
+In the next step, we'll discuss routes in more detail.

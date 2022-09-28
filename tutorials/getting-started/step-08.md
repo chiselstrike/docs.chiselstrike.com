@@ -1,9 +1,8 @@
 # Step 8: Deploy to the ChiselStrike managed service
 
-In this tutorial so far, you've used the ChiselStrike CLI to build your
-endpoints and entities locally. In order to use ChiselStrike in your live
-projects, you can deploy to ChiselStrike's managed serverless backend.
-Deployment involves:
+In this tutorial so far, you've used the ChiselStrike CLI to build your routes
+and entities locally. In order to use ChiselStrike in your live projects, you
+can deploy to ChiselStrike's managed serverless backend. Deployment involves:
 
 - Creating a project in the ChiselStrike dashboard.
 - Connecting the project to a GitHub repository that contains your code.
@@ -94,41 +93,41 @@ belong to multiple organizations, choose the one where the project was created.)
 "Deploy".
 
 A new project will be created in the dashboard and the project will be deployed.
-It will take a few moments. When the deployment is complete, you will see a
-list of endpoints that you worked with previously in this tutorial.
+It will take a few moments. When the deployment is complete, you will see a list
+of routes that you worked with previously in this tutorial.
 
-## 4. Invoke the "hello" endpoint in your deployed project
+## 4. Invoke the "hello" routes in your deployed project
 
 After deployment is complete, you will see a summary of the project deployment.
-Notice that the list of endpoints contains the endpoints you used earlier in
-this tutorial ("hello" and "posts").
+Notice that the list of routes contains the routes you used earlier in this
+tutorial ("hello" and "posts").
 
-The URL format of the endpoint is composed from information from GitHub and your
-project:
+The endpoint URL format of the route is composed from information from GitHub
+and your project:
 
-> https://[REPO-NAME]-[GITHUB-ACCOUNT].chiselstrike.io/[BRANCH]/[ENDPOINT]
+> https://[REPO-NAME]-[GITHUB-ACCOUNT].chiselstrike.io/[BRANCH]/[ROUTE]
 
 For example, if you followed this tutorial exactly, and your github account name
-is "CharlieChiseler", the URL would be:
+is "CharlieChiseler", the endpoint URL would be:
 
 > https://chiselstrike-tutorial-charliechiseler.chiselstrike.io/main/posts
 
-Copy the URL of the "hello" endpoint using the copy button to the right of it,
+Copy the URL of the "hello" route using the copy button to the right of it,
 then paste it into a curl command in your shell:
 
 ```bash
-curl https://[REPO-NAME]-[GITHUB-ACCOUNT].chiselstrike.io/[BRANCH]/[ENDPOINT]
+curl https://[REPO-NAME]-[GITHUB-ACCOUNT].chiselstrike.io/[BRANCH]/[ROUTE]
 ```
 
-```json
-"hello world"
+```
+hello world
 ```
 
-## 5. Experiment with your endpoints and entities
+## 5. Experiment with your routes and entities
 
 You are now able to run the same curl commands from earlier in this tutorial to
-invoke endpoints and perform CRUD operations on the BlogPost entity. Feel free
-to experiment with this as much as you like.
+invoke routes and perform CRUD operations on the BlogPost entity. Feel free to
+experiment with this as much as you like.
 
 :::note
 
@@ -137,7 +136,7 @@ to re-populate that data with new curl commands on the new endpoint URL.
 
 :::
 
-For example, to add a new entity with the "posts" endpoint:
+For example, to add a new entity with the "posts" route:
 
 ```bash
 curl \
