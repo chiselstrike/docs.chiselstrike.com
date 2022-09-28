@@ -1,30 +1,26 @@
 # Step 5: Entity CRUD operations
 
-## Create an endpoint for the entity
+## Create a route for the entity
 
 After defining an entity with TypeScript, you can write the minimal amount of
 code required to generate a fully functional REST API for that entity that
 implements CRUD operations:
 
-```ts title="my-backend/endpoints/posts.ts"
+```ts title="my-backend/routes/posts.ts"
 import { BlogPost } from '../models/BlogPost';
 
 export default BlogPost.crud();
 ```
 
-In your ChiselStrike project, create a new file in the existing endpoints
-directory and call it `posts.ts`. Copy the above code into it and save the file.
-Upon saving the file, `chiseld` will automatically restart and pick up the new
-endpoint. You can verify this in its output:
+In your ChiselStrike project, create a new file in the existing routes directory
+and call it `posts.ts`. Copy the above code into it and save the file. Upon
+saving the file, `chiseld` will automatically restart and pick up the new
+route.
 
-```
-End point defined: /dev/posts
-```
-
-Like the "hello" endpoint you saw earlier, the path of this endpoint is
-generated from the name of the TypeScript file in the endpoints directory. You
-can now use the URL `http://localhost:8080/dev/posts` to perform CRUD operations
-on the `BlogPost` entity.
+Like the "hello" route you saw earlier, the path of this route is generated from
+the name of the TypeScript file in the routes directory. You can now use the
+endpoint URL `http://localhost:8080/dev/posts` to perform CRUD operations on the
+`BlogPost` entity.
 
 :::note
 
@@ -81,8 +77,8 @@ Note the following:
   JSON object whose fields match the properties of the BlogPost entity.
 
 - The entity is assigned a random unique ID string in its `id` property. This
-  tutorial will only show "GENERATED_ID" in sample output because the ID you see
-  will be unique to your commands.
+  tutorial will only show "[GENERATED_ID]" in sample output because the ID you
+  see will be unique to your commands.
 
 :::tip
 
