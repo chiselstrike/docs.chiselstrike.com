@@ -50,7 +50,7 @@ our secrets. But it's great for a demo!
 We can now ask for one of our secrets
 
 ```console
-curl localhost:8080/dev/secrets?secret=secret1
+curl "localhost:8080/dev/secrets?secret=secret1"
 ```
 
 and receive:
@@ -62,7 +62,7 @@ and receive:
 or fetch another one of our secrets, that is a JSON object instead of a string:
 
 ```console
-curl localhost:8080/dev/secrets?secret=secret2
+curl "localhost:8080/dev/secrets?secret=secret2"
 ```
 
 and receive it back:
