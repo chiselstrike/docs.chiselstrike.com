@@ -14,6 +14,14 @@ command:
 npx create-chiselstrike-app@0.12.1 my-backend
 ```
 
+:::warning
+
+This tutorial requires version 0.12.1 even though the latest version of the SDK
+is 0.13. Some features in the 0.13 SDK are currently not supported in the
+ChiselStrike managed service.
+
+:::
+
 :::tip
 
 Throughout ChiselStrike documentation you can copy a code sample by clicking the
