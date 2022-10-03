@@ -38,12 +38,10 @@ any necessary adjustments to the underlying backing datastore.
 ## Saving Objects
 
 The `ChiselEntity` base class that our `User` entity extends provides a `save()`
-method that will save an object to the datastore. Here is an example endpoint
-demo:
+method that will save an object to the datastore. Here is an example route demo:
 
 <!-- FIXME : update the example below to return JSON -->
-```ts title="my-backend/endpoints/create.ts"
-import { responseFromJson } from "@chiselstrike/api"
+```ts title="my-backend/routes/create.ts"
 import { User } from "../models/User"
 
 export default async function (req) {
@@ -78,12 +76,12 @@ returned when you create the object, or you can query for it.
 
 <!-- FIXME: need a Section "Deleting Objects" -->
 
-Still, you are not technically limited to making every endpoint follow REST
+Still, you are not technically limited to making every route follow REST
 principles by using ids. For example, you could write the following 'update'
-endpoint that receives the same JSON, but finds the `User` entity based on the
+route that receives the same JSON, but finds the `User` entity based on the
 provided `username`:
 
-```ts title="my-backend/endpoints/update.ts"
+```ts title="my-backend/routes/update.ts"
 import { responseFromJson } from "@chiselstrike/api";
 import { User } from "../models/User";
 
@@ -116,17 +114,18 @@ In some of the above examples, we've previewed how to query objects using the
 There are two search methods `findOne()` and `findMany()` for querying.
 
 For example, to query one entity with a given `username`, we could use the
-following example code in an endpoint:
+following example code in a route:
 
-```ts title="my-backend/endpoints/find-one.ts"
-import { responseFromJson } from "@chiselstrike/api"
+```ts title="my-backend/routes/find-one.ts"
+import { RouteMap, responseFromJson } from "@chiselstrike/api"
 import { User } from "../models/User"
 
-export default async function (req) {
-    const payload = await req.json();
-    const user = await User.findOne(payload) ?? "Not found";
-    return responseFromJson(user);
-}
+export default new RouteMap()
+    .post("/", async function (req) {
+        const payload = await req.json();
+        const user = await User.findOne(payload) ?? "Not found";
+        return responseFromJson(user);
+    });
 ```
 
 and query it with `/dev/find-one`:
@@ -145,15 +144,16 @@ and see `curl` report:
 
 To find multiple entities, use the `findMany()` method:
 
-```ts title="my-backend/endpoints/find-many.ts"
-import { responseFromJson } from "@chiselstrike/api"
+```ts title="my-backend/routes/find-many.ts"
+import { RouteMap, responseFromJson } from "@chiselstrike/api"
 import { User } from "../models/User"
 
-export default async function (req) {
-    const payload = await req.json();
-    const user = await User.findMany(payload);
-    return responseFromJson('Found ' + user.map(user => user.username));
-}
+export default new RouteMap()
+    .post("/", async function (req) {
+        const payload = await req.json();
+        const user = await User.findMany(payload);
+        return responseFromJson('Found ' + user.map(user => user.username));
+    });
 ```
 
 and query it with `/dev/find-many`:
@@ -174,7 +174,7 @@ We can create more entities with:
 curl -d '{"username": "bob", "email": "bob@example.com", "city": "Cambridge" }' localhost:8080/dev/create
 ```
 
-We can then invoke the `/dev/find-many` endpoint again:
+We can then invoke the `/dev/find-many` route again:
 
 ```bash
 curl -d '{ "city": "Cambridge" }' localhost:8080/dev/find-many
@@ -190,21 +190,22 @@ which returns additional results:
 
 `findMany` can be called with a predicate lambda as well:
 
-```typescript title="my-backend/endpoints/find-many.ts"
-import { responseFromJson } from "@chiselstrike/api"
+```typescript title="my-backend/routes/find-many.ts"
+import { RouteMap, responseFromJson } from "@chiselstrike/api"
 import { User } from "../models/User"
 
-export default async function (req) {
-    const user = await User.findMany(user => user.city == "Cambridge");
-    return responseFromJson('Found ' + user.map(user => user.username));
-}
+export default new RouteMap()
+    .post("/", async function (req) {
+        const user = await User.findMany(user => user.city == "Cambridge");
+        return responseFromJson('Found ' + user.map(user => user.username));
+    });
 ```
 :::
 
 You can also pass an empty restrictions object to `findMany()` and you will get
 all the entities of that type.
 
-To do that, invoke the `/dev/find-many` test endpoint with an empty JSON
+To do that, invoke the `/dev/find-many` test route with an empty JSON
 document:
 
 ```bash
@@ -240,15 +241,16 @@ Entities are deleted using the `ChiselEntity.delete(restriction)` method. For
 example, with the `User` entity defined earlier, you delete an entity as
 follows:
 
-```ts title="my-backend/endpoints/delete.ts"
-import { User } from "../models/User.ts"
+```ts title="my-backend/routes/delete.ts"
+import { RouteMap, User } from "../models/User.ts"
 
-export default async function (req: Request) {
-    const payload = await req.json()
-    const email = payload.email;
-    await User.delete({ email });
-    return new Response("Deleted " + email);
-}
+export default new RouteMap()
+    .post("/", async function (req: Request) {
+        const payload = await req.json()
+        const email = payload.email;
+        await User.delete({ email });
+        return new Response("Deleted " + email);
+    });
 ```
 
 In this example, we delete an user by their email address.

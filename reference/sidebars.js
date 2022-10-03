@@ -34,7 +34,22 @@ const sidebars = {
         'entity-crud-api/relationships',
       ]
     },
-    'endpoints',
+    {
+      type: 'category',
+      label: 'Routing',
+      link: {
+        type: 'doc',
+        id: 'routing/index',
+      },
+      items: [
+        'routing/definition',
+        'routing/response',
+        'routing/placeholders',
+        'routing/advanced-route-definitions',
+        'routing/entity-crud',
+      ]
+    },
+    'routes',
     'data-access',
     'streaming',
     'debugging',
@@ -43,7 +58,6 @@ const sidebars = {
     'secrets',
     'versions',
     'login',
-    'routing',
     'chisel-cli',
   ],
 };

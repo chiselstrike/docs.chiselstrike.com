@@ -1,4 +1,4 @@
-# More About Endpoints
+# More About Routes
 
 In this section we'll show how to move beyond simple CRUD requests, as shown in
 the [Getting started tutorial](/tutorials/getting-started/).
@@ -14,78 +14,69 @@ VALUE}` or `{"error": "message"}` depending on the result.
 
 <!-- FIXME: replace with class based alternates once available -->
 
-```ts title="my-backend/endpoints/comments-readonly.ts"
-import { crud, standardCRUDMethods, responseFromJson } from "@chiselstrike/api";
+```ts title="my-backend/routes/comments-readonly.ts"
+import { crud, responseFromJson } from "@chiselstrike/api";
 import { BlogComment } from "../models/BlogComment";
+
+function createResponse(body: unknown, status: number): Response {
+    if (status < 400) {
+        return responseFromJson({ data: body["results"] }, status);
+    }
+    return responseFromJson({ error: body }, status);
+}
 
 export default crud(
     BlogComment,
-    ":id", /* :id can be explicitly provided */
-    {
-        customMethods: {
-            DELETE: standardCRUDMethods.methodNotAllowed,
-            POST: standardCRUDMethods.methodNotAllowed,
-            PUT: standardCRUDMethods.methodNotAllowed,
-        },
-        createResponses: {
-            GET: (body: unknown, status: number) => {
-                if (status < 400) {
-                    return responseFromJson({ data: body["results"] }, status);
-                }
-                return responseFromJson({ error: body }, status);
-            },
-        }
-    },
+    { write: false, createResponse }
 );
 ```
 
 You may also be interested in the [Authentication](/reference/login) chapter.
 
-## Full Custom Endpoints
+## Full Custom Routes
 
 Being able to just get started very quickly and spawn a CRUD API is great, but
 as your project evolves in complexity you may find yourself needing custom
-business logic and endpoints that don't fit neatly into REST workflows. This is
+business logic and routes that don't fit neatly into REST workflows. This is
 a big advantage of ChiselStrike, since you will be able to express complex
 logic, sometimes dealing with multiple models and queries, with a single
 roundtrip.
 
-ChiselStrike allows each endpoint file to export a default method implementing
+ChiselStrike allows each route file to export a default method implementing
 your custom logic. You can return any type you want, either an existing model or
 a user-defined type.
 
-For example, here's how you can have a specialized endpoint that returns all
-posts:
+For example, here's how you can have a specialized route that returns all posts:
 
-```ts title="my-backend/endpoints/allcomments.ts"
+```ts title="my-backend/routes/allcomments.ts"
+import { RouteMap } from "@chiselstrike/api";
 import { BlogComment } from "../models/BlogComment"
 
-export default async function() : Promise<Array<BlogComment>> {
-    return BlogComment.findAll()
-}
+export default new RouteMap()
+    .get("/", async function() : Promise<Array<BlogComment>> {
+        return BlogComment.findAll()
+    });
 ```
 
 Optionally, your function can take as a parameter a [Request], or the
 specialized `ChiselRequest`, a subclass with a few convenience fields added. In
-the following example, we can use the `pathComponents()` method of
-`ChiselRequest` to implement path-based finding:
+the following example, we can use the `params` property of `ChiselRequest` to
+implement path-based finding:
 
-```ts title="my-backend/endpoints/onecomment.ts"
+```ts title="my-backend/routes/onecomment.ts"
 import { BlogComment } from "../models/BlogComment"
-import { ChiselRequest } from "@chiselstrike/api"
+import { ChiselRequest, RouteMap } from "@chiselstrike/api"
 
-export default async function (req: ChiselRequest) : Promise<BlogComment> {
-    const id = req.pathComponents()[0]; // first parameter is id, others are ignored
-    return BlogComment.findOne({id})
-}
+export default new RouteMap()
+    .get("/:id", async function (req: ChiselRequest) : Promise<BlogComment> {
+        const id = req.params.get("id");
+        return BlogComment.findOne({id});
+    });
 ```
 
-Ultimately, you can code endpoints of arbitrary complexity. For example, having
-a single endpoint that handles multiple methods, returning either one of your
-types or an HTTP [Response]. You can then add whatever logic you want!
-
-This is a lower level mechanism and is pretty raw -- we are working on syntax
-features that will make this much more powerful.
+Ultimately, you can code routes of arbitrary complexity. For example, having a
+single route that handles multiple methods, returning either one of your types
+or an HTTP [Response]. You can then add whatever logic you want.
 
 :::tip
 
@@ -94,37 +85,35 @@ changes to the backend state, they happen under `PUT`, `POST`, or `DELETE`!
 
 :::
 
-Now let's edit our endpoint's code to show off a "full customization" example.
+Now let's edit our route's code to show off a "full customization" example.
 
-```ts title="my-backend/endpoints/comments.ts"
-import { ChiselRequest, responseFromJson } from "@chiselstrike/api"
+```ts title="my-backend/routes/comments.ts"
+import { ChiselRequest, RouteMap, responseFromJson } from "@chiselstrike/api"
 import { BlogComment } from "../models/BlogComment"
 
-type Return = Array<BlogComment> | BlogComment | Response;
-
-export default async function chisel(req: ChiselRequest) : Promise<Return> {
-    if (req.method == 'POST') {
-        const payload = await req.json();
-        const by = payload["by"] || "anonymous";
-        const content = payload["content"];
-        // no await needed, this is Promise<BlogComment>
-        return BlogComment.create({ content, by });
-    } else if (req.method == 'GET') {
-        // if we have a parameter, treat it as an id, otherwise get all
-        const id = req.pathComponents()[0]
-        if (id) {
-           const comment = await BlogComment.findOne({id})
-           const status = comment ? 200 : 404;
-           // notice how now we had to await findOne, as we wanted to build a Response
-           return responseFromJson(comment, status)
-        } else {
-           // no await needed, this is Promise<Array<BlogComment>>
-           return BlogComment.findAll();
-        }
-    } else {
-        return new Response("Wrong method", { status: 405});
-    }
+async function handlePost(req: ChiselRequest): Promise<BlogComment> {
+    const payload = await req.json();
+    const by = payload["by"] || "anonymous";
+    const content = payload["content"];
+    return await BlogComment.create({ content, by });
 }
+
+async function handleGetOne(req: ChiselRequest): Promise<Response> {
+    const id = req.params.get("id");
+    const comment = await BlogComment.findOne({id})
+    const status = comment ? 200 : 404;
+    // notice how now we had to await findOne, as we wanted to build a Response
+    return responseFromJson(comment, status)
+}
+
+async function handleGetAll(req: ChiselRequest): Promise<Array<BlogComment>> {
+    return await BlogComment.findAll();
+}
+
+export default new RouteMap()
+    .post("/", handlePost)
+    .get("/:id", handleGetOne)
+    .get("/", handleGetAll);
 ```
 
 :::tip
@@ -143,7 +132,7 @@ future. We do our own explicit error checking in this example.
 
 :::
 
-With this endpoint example, we're now getting to know ChiselStrike's API and
+With this route example, we're now getting to know ChiselStrike's API and
 runtime better. Notice how we were able to parse the request under `POST` with
 our own custom validation, and then use the `build` API to construct an object
 that is then persisted with `save`.  We'll explain the use of the data model
@@ -152,7 +141,7 @@ more in [Data Access](./data-access).
 Finally, notice the `responseFromJson` convenience method, which takes a
 JavaScript object and serializes it into a `Response` ready to be returned.
 
-Let's now test our endpoint with a POST, and see it works similarly to the
+Let's now test our route with a POST, and see it works similarly to the
 automatic "CRUD" example above.
 
 ```bash
@@ -203,40 +192,42 @@ and we should see something like the following:
 
 
 🎉 Nice! You've gone from a simple REST API for learning how to write full
-custom endpoints using the full data model. It's time to explore our API in
+custom routes using the full data model. It's time to explore our API in
 greater depth, then you can set out and explore other documentation sections
 according to your interests!
 
-## Code sharing between endpoints
+## Code sharing between routes
 
-It is common for endpoints to share more code than just the models. If the
+It is common for routes to share more code than just the models. If the
 common code is already published as module, the module can be imported directly:
 
-```ts title="my-backend/endpoints/indented.ts"
+```ts title="my-backend/routes/indented.ts"
+import { RouteMap } from '@chiselstrike/api';
 import indent from 'https://deno.land/x/text_indent@v0.1.0/mod.ts';
 
-export default async function chisel(req: Request) {
-    return new Response("the following is indented" + indent("foo", 16));
-}
+export default new RouteMap()
+    .get("/", (req: Request) => "the following is indented" + indent("foo", 16));
 ```
 
 But for code that is specific to a project and not publicly available, the
-module can be placed in a directory next to the endpoints. By convention that
+module can be placed in a directory next to the routes. By convention that
 directory is named lib, but any other name would work. For example:
 
 ```ts title="my-backend/lib/hello.ts"
-export function hello() {
+export function hello(): string {
     return "Welcome to ChiselStrike";
 }
 ```
 
-```ts title="my-backend/endpoints/day.ts"
+```ts title="my-backend/routes/day.ts"
+import { RouteMap } from "@chiselstrike/api";
 import { hello } from "../lib/hello.ts";
 
-export default async function (req: Request) {
-    const msg = hello();
-    return new Response(`${msg}\n Have a nice day.`);
-}
+export default new RouteMap()
+    .get("/", async function (req: Request) {
+        const msg = hello();
+        return new Response(`${msg}\n Have a nice day.`);
+    });
 ```
 
 ## CRUD paging
@@ -268,7 +259,7 @@ which gives us
             "by": "Jill"
         }
     ],
-    "next_page": "localhost:8080/dev/comments?.by~like=Ji%25&page_size=2&cursor=eyJheGV..."
+    "next_page": "/dev/comments?.by~like=Ji%25&page_size=2&cursor=eyJheGV..."
 }
 ```
 
@@ -297,7 +288,7 @@ curl -g localhost:8080/dev/comments?.by~like=Ji%25&page_size=2&cursor=eyJheGV...
             "by": "Jim"
         },
     ],
-    "prev_page": "localhost:8080/dev/comments?.by~like=Ji%25&page_size=2&cursor=GVzIjpe..."
+    "prev_page": "/dev/comments?.by~like=Ji%25&page_size=2&cursor=GVzIjpe..."
 }
 ```
 
@@ -326,15 +317,6 @@ key sorting is used if no sort is specified) and uses the elements as pivots.
 This way we can directly jump to the pivot using index and start filling the
 page from there.
 
-### HOST header
-
-To construct the next/prev page links, we need to know what host and possibly
-port to use. It's not trivial to retrieve it automatically due to proxies etc.,
-hence we utilize the `HOST` HTTP header from your request. For example `curl`
-sets it automatically and many HTTP libraries do the same.
-
-If `HOST` header is not specified, we will try to guess it, but it's highly
-recommended that it's provided.
 
 [Request]: https://developer.mozilla.org/en-US/docs/Web/API/Request
 [Response]: https://developer.mozilla.org/en-US/docs/Web/API/Response

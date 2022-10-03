@@ -15,14 +15,15 @@ For example, the `findOne()` example could be written using the cursor-based API
 as:
 
 ```ts title="my-backend/endpoints/find-one-cursor.ts"
-import { responseFromJson } from "@chiselstrike/api"
+import { RouteMap, responseFromJson } from "@chiselstrike/api"
 import { User } from "../models/models"
 
-export default async function (req) {
-    const payload = await req.json();
-    const users = await User.cursor().filter(payload).take(1).toArray();
-    return responseFromJson('Found ' + users.map(user => user.username));
-}
+export default new RouteMap()
+    .post("/", async function (req) {
+        const payload = await req.json();
+        const users = await User.cursor().filter(payload).take(1).toArray();
+        return responseFromJson('Found ' + users.map(user => user.username));
+    });
 ```
 
 You can invoke the `/dev/find-one-cursor` endpoint with:
