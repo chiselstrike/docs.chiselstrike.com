@@ -11,7 +11,7 @@ Change to the directory where you want to create the project. Run the following
 command:
 
 ```bash
-npx create-chiselstrike-app@latest my-backend
+npx create-chiselstrike-app@0.12.1 my-backend
 ```
 
 :::tip
