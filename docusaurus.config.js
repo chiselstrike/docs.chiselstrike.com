@@ -145,6 +145,12 @@ const themeConfig = {
   },
 }
 
+const redirectOptions = {
+  redirects: [
+    { to: '/tutorials/getting-started/', from: '/Intro/first' }
+  ]
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const docusaurusConfig = {
   title: 'ChiselStrike documentation',
@@ -163,6 +169,7 @@ const docusaurusConfig = {
     [ 'content-docs', examplesPluginOptions ],
     [ 'content-docs', referencePluginOptions ],
     [ '@docusaurus/theme-classic', themeOptions ],
+    [ '@docusaurus/plugin-client-redirects', redirectOptions ],
   ],
 
   themeConfig: themeConfig
