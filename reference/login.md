@@ -8,9 +8,9 @@ ChiselStrike.
 
 An easy way to support many OAuth providers, as well as email and SMS
 authentication is to leverage the [NextAuth.js
-framework](https://next-auth.js.org/) in the frontend.  NextAuth is
-popular, featureful, and open-source.  It takes little effort to set
-up and can be used with both NextJS and
+framework](https://next-auth.js.org/) in the frontend.  NextAuth is popular,
+feature-rich, and open-source.  It takes little effort to set up and can be used
+with both NextJS and
 [Gatsby](https://github.com/nextauthjs/next-auth-gatsby-example).
 
 Rather than roll our own OAuth implementations, we decided to rely on
@@ -67,6 +67,8 @@ please see ["Restricting Data Access to Matching
 User"](pol#restricting-data-access-to-matching-user).
 
 :::note
+
 AuthUser instances are managed by ChiselStrike.  Trying to create or destroy
-them in your code will faill with an error.
+them in your code will fail with an error.
+
 :::

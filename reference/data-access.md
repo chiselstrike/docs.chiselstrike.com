@@ -4,11 +4,13 @@
 
 Models represent the domain objects of your application.
 
-For example, in a blogging platform, you will have entities such as `BlogPost`, `BlogComment`, `Author`, and so on.
+For example, in a blogging platform, you will have entities such as `BlogPost`,
+`BlogComment`, `Author`, and so on.
 
-To define a `User`, you can add the following TypeScript class to a file in the `models/` directory:
+To define a `User`, you can add the following TypeScript class to a file in the
+`models/` directory:
 
-```typescript  title="my-backend/models/User.ts"
+```ts title="my-backend/models/User.ts"
 import { ChiselEntity } from "@chiselstrike/api"
 
 export class User extends ChiselEntity {
@@ -20,7 +22,7 @@ export class User extends ChiselEntity {
 
 and another example:
 
-```typescript title="my-backend/models/models.ts"
+```ts title="my-backend/models/models.ts"
 import { ChiselEntity, labels } from "@chiselstrike/api"
 import { User } from "../models/User"
 
@@ -30,26 +32,28 @@ export class BlogComment extends ChiselEntity {
 }
 ```
 
-The ChiselStrike runtime will detect changes in the `models/` directory and make any neccessary adjustments to the underlying backing datastore.
+The ChiselStrike runtime will detect changes in the `models/` directory and make
+any necessary adjustments to the underlying backing datastore.
 
 ## Saving Objects
 
-The `ChiselEntity` base class that our `User` entity extends provides a `save()` method that will save an object to the datastore.
-Here is an example endpoint demo:
+The `ChiselEntity` base class that our `User` entity extends provides a `save()`
+method that will save an object to the datastore. Here is an example endpoint
+demo:
 
 <!-- FIXME : update the example below to return JSON -->
-```typescript title="my-backend/endpoints/create.ts"
+```ts title="my-backend/endpoints/create.ts"
 import { responseFromJson } from "@chiselstrike/api"
 import { User } from "../models/User"
 
 export default async function (req) {
-  const payload = await req.json();
-  const username = payload["username"] || "";
-  const email = payload["email"] || "";
-  const city = payload["city"] || "";
-  const user = User.build({ username, email, city });
-  await user.save();
-  return user;
+    const payload = await req.json();
+    const username = payload["username"] || "";
+    const email = payload["email"] || "";
+    const city = payload["city"] || "";
+    const user = User.build({ username, email, city });
+    await user.save();
+    return user;
 }
 ```
 
@@ -74,49 +78,54 @@ returned when you create the object, or you can query for it.
 
 <!-- FIXME: need a Section "Deleting Objects" -->
 
-Still, you are not technically limited to making every endpoint follow REST principles by using ids. For example, you could write the following 'update' endpoint that recieves the same JSON, but finds the `User` entity based on the provided `username`:
+Still, you are not technically limited to making every endpoint follow REST
+principles by using ids. For example, you could write the following 'update'
+endpoint that receives the same JSON, but finds the `User` entity based on the
+provided `username`:
 
-```typescript title="my-backend/endpoints/update.ts"
+```ts title="my-backend/endpoints/update.ts"
 import { responseFromJson } from "@chiselstrike/api";
 import { User } from "../models/User";
 
 export default async function (req) {
-  const payload = await req.json();
-  const username = payload["username"] || "";
-  const email = payload["email"] || "";
-  const city = payload["city"] || "";
-  const id = payload["id"];
-  let user = id
-    ? User.build({ id, username, email, city })
-    : await User.findOne({ username });
+    const payload = await req.json();
+    const username = payload["username"] || "";
+    const email = payload["email"] || "";
+    const city = payload["city"] || "";
+    const id = payload["id"];
+    let user = id
+        ? User.build({ id, username, email, city })
+        : await User.findOne({ username });
 
-  if (!user) {
-    return new Response("id not provided and user " + username + " not found");
-  } else {
-    user.email = email;
-    user.city = city;
-    await user.save();
-    return responseFromJson("Updated " + user.username + " id " + user.id);
-  }
+    if (!user) {
+        return new Response("id not provided and user " + username + " not found");
+    } else {
+        user.email = email;
+        user.city = city;
+        await user.save();
+        return responseFromJson("Updated " + user.username + " id " + user.id);
+    }
 }
 ```
 
 ## Querying Single Objects
 
-In some of the above examples, we've previewed how to query objects using the `User.findOne()` method call.
+In some of the above examples, we've previewed how to query objects using the
+`User.findOne()` method call.
 
 There are two search methods `findOne()` and `findMany()` for querying.
 
-For example, to query one entity with a given `username`, we could use the following example code in an endpoint:
+For example, to query one entity with a given `username`, we could use the
+following example code in an endpoint:
 
-```typescript title="my-backend/endpoints/find-one.ts"
+```ts title="my-backend/endpoints/find-one.ts"
 import { responseFromJson } from "@chiselstrike/api"
 import { User } from "../models/User"
 
 export default async function (req) {
-  const payload = await req.json();
-  const user = await User.findOne(payload) ?? "Not found";
-  return responseFromJson(user);
+    const payload = await req.json();
+    const user = await User.findOne(payload) ?? "Not found";
+    return responseFromJson(user);
 }
 ```
 
@@ -136,14 +145,14 @@ and see `curl` report:
 
 To find multiple entities, use the `findMany()` method:
 
-```typescript title="my-backend/endpoints/find-many.ts"
+```ts title="my-backend/endpoints/find-many.ts"
 import { responseFromJson } from "@chiselstrike/api"
 import { User } from "../models/User"
 
 export default async function (req) {
-  const payload = await req.json();
-  const user = await User.findMany(payload);
-  return responseFromJson('Found ' + user.map(user => user.username));
+    const payload = await req.json();
+    const user = await User.findMany(payload);
+    return responseFromJson('Found ' + user.map(user => user.username));
 }
 ```
 
@@ -178,6 +187,7 @@ which returns additional results:
 ```
 
 :::note
+
 `findMany` can be called with a predicate lambda as well:
 
 ```typescript title="my-backend/endpoints/find-many.ts"
@@ -185,15 +195,17 @@ import { responseFromJson } from "@chiselstrike/api"
 import { User } from "../models/User"
 
 export default async function (req) {
-  const user = await User.findMany(user => user.city == "Cambridge");
-  return responseFromJson('Found ' + user.map(user => user.username));
+    const user = await User.findMany(user => user.city == "Cambridge");
+    return responseFromJson('Found ' + user.map(user => user.username));
 }
 ```
 :::
 
-You can also pass an empty restrictions object to `findMany()` and you will get all the entities of that type.
+You can also pass an empty restrictions object to `findMany()` and you will get
+all the entities of that type.
 
-To do that, invoke the `/dev/find-many` test endpoint with an empty JSON document:
+To do that, invoke the `/dev/find-many` test endpoint with an empty JSON
+document:
 
 ```bash
 curl -d '{}' localhost:8080/dev/find-many
@@ -208,9 +220,12 @@ and see `curl` report:
 ```
 
 :::note
-The `findMany()` method is convenient, but if there are too many results, this can consume a lot of time and memory.
-In future releases of ChiselStrike, the runtime will enforce a maximum number of entities from `findMany()` at API level
+
+The `findMany()` method is convenient, but if there are too many results, this
+can consume a lot of time and memory. In future releases of ChiselStrike, the
+runtime will enforce a maximum number of entities from `findMany()` at API level
 and pagination in result sets will be available for REST-API consumers.
+
 :::
 
 <!-- FIXME: expand explanation here, possibly a different page even -->
@@ -222,9 +237,10 @@ The documentation robots are at work. Examples coming soon!
 ## Deleting Objects
 
 Entities are deleted using the `ChiselEntity.delete(restriction)` method. For
-example, with the `User` entity defined earlier, you delete an entity as follows:
+example, with the `User` entity defined earlier, you delete an entity as
+follows:
 
-```typescript title="my-backend/endpoints/delete.ts"
+```ts title="my-backend/endpoints/delete.ts"
 import { User } from "../models/User.ts"
 
 export default async function (req: Request) {
@@ -241,7 +257,7 @@ In this example, we delete an user by their email address.
 
 Let's look closer at the BlogComment example we gave earlier:
 
-```typescript title="my-backend/models/models.ts"
+```ts title="my-backend/models/models.ts"
 import { ChiselEntity, labels } from "@chiselstrike/api"
 import { User } from "../models/User"
 
@@ -251,13 +267,20 @@ export class BlogComment extends ChiselEntity {
 }
 ```
 
-You can observe that the `author` field is of type `User`, which is another entity. This is a way we can define a relationship between entities.
+You can observe that the `author` field is of type `User`, which is another
+entity. This is a way we can define a relationship between entities.
 
-Entity fields are eagerly loaded. This means that when you load a `BlogComment` instance, the author field entity is loaded with it. Same goes for saving -- when you save a `BlogComment` with an author, a `User` instance will be upserted in the database and reference to it will be associated with the stored `BlogComment`. (So if this `User` already existed in the database, it will be updated with the value provided.)
+Entity fields are eagerly loaded. This means that when you load a `BlogComment`
+instance, the author field entity is loaded with it. Same goes for saving --
+when you save a `BlogComment` with an author, a `User` instance will be upserted
+in the database and reference to it will be associated with the stored
+`BlogComment`. (So if this `User` already existed in the database, it will be
+updated with the value provided.)
 
 ## See Also: Cursors
 
-Now you've seen all the basics about data-access and hope you are enjoying not having to write any SQL or deal with migrations or anything like that!
-We have some additional options available. When you feel like exploring, read [Cursors](/reference/cursors) for how to build queries in very powerful composable ways.
-
-
+Now you've seen all the basics about data-access and hope you are enjoying not
+having to write any SQL or deal with migrations or anything like that! We have
+some additional options available. When you feel like exploring, read
+[Cursors](/reference/cursors) for how to build queries in very powerful
+composable ways.
