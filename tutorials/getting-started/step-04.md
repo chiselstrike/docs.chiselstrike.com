@@ -48,8 +48,7 @@ a CRUD API using the definition of an entity.
 ## `export class BlogPost`
 
 You must export any `ChiselEntity` classes from TypeScript source files in the
-models directory in order for ChiselStrike to recognize and work with them. The
-name of the class is used to build the path of the generated CRUD API.
+models directory in order for ChiselStrike to recognize and work with them.
 
 ## Property types
 
