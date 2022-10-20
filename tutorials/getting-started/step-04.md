@@ -1,11 +1,11 @@
 # Step 4: Define an entity
 
-The endpoints you learned about in the previous step give you flexibility to
-implement whatever behavior you want for client HTTP requests. However, for
-reading and writing application data, ChiselStrike provides an easy way to build
-an API that performs [CRUD][2] (Create, Read, Update, Delete) operations on
-entities you define. The only thing you are required to do is write TypeScript
-classes to express your data model.
+The routes you learned about in the previous step give you flexibility to
+implement any behavior you want for client HTTP requests. However, for reading
+and writing application data, ChiselStrike provides an easy way to build an API
+that performs [CRUD][2] (Create, Read, Update, Delete) operations on entities
+you define. The only thing you are required to do is write TypeScript classes to
+express your data model.
 
 Here is code for a sample entity:
 
@@ -26,7 +26,8 @@ saving the file, `chiseld` will automatically restart and pick up the new
 entity. You can verify this in its output:
 
 ```
-Model defined: BlogPost
+Applied:
+  1 models
 ```
 
 Let's break down some of the details of what you see here.

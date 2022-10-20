@@ -4,7 +4,7 @@ pagination_next: null
 
 # Next steps
 
-Congratuations! You've finished the first ChiselStrike tutorial. You should now
+Congratulations! You've finished the first ChiselStrike tutorial. You should now
 be able to build your own fully functional CRUD API locally using TypeScript and
 the ChiselStrike CLI, then deploy it to ChiselStrike's managed cloud.
 
