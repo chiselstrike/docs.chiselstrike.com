@@ -79,11 +79,11 @@ const themeConfig = {
         label: 'Reference',
         position: 'left',
       },
-      // {
-      //   type: 'docsVersionDropdown',
-      //   docsPluginId: 'reference',
-      //   position: 'left',
-      // },
+      {
+        type: 'docsVersionDropdown',
+        docsPluginId: 'reference',
+        position: 'left',
+      },
       {
         href: 'https://chiselstrike.com',
         label: 'Website',
