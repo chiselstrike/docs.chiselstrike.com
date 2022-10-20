@@ -73,7 +73,7 @@ create the repo.
 1. Use the "Import Git Repository" option.
 
    At this point, normally, you would be able to find your repo in the UI
-persented here.  However, if this is your first time using ChiselStrike with
+presented here.  However, if this is your first time using ChiselStrike with
 this GitHub account, ChiselStrike will not have access to your repo. Note the
 following message:
 
