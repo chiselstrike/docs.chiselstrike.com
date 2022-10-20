@@ -34,7 +34,7 @@ const referencePluginOptions = {
   path: 'reference',
   routeBasePath: 'reference',
   sidebarPath: require.resolve('./reference/sidebars.js'),
-  // includeCurrentVersion: false,  // disables "next", forces version into path
+  includeCurrentVersion: false,  // disables "next", forces version into path
 }
 
 /** @type {import('@docusaurus/theme-classic').Options} */

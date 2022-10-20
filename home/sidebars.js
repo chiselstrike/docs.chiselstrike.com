@@ -21,6 +21,7 @@ const sidebars = {
       label: 'Reference',
       href: '/reference/'
     },
+    "release-notes",
     "ongoing-work",
     "community",
   ],
