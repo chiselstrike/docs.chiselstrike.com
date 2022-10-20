@@ -38,6 +38,8 @@ subclasses:
 - `Date`
 - Arrays of the above primitive types (e.g. `string[]`)
 - Nested arrays (e.g. `string[][]`)
+- `Id` generic type parameterized by an entity class (e.g. `Id<SomeEntity>`)
+  (see [Id type properties](#id-type-properties))
 - Other entity types (see [relationships])
 
 The following is a class that defines one of each supported type:
@@ -50,6 +52,7 @@ export class AllTypes extends ChiselEntity {
     d: Date
     as: string[]
     aan: number[][]
+    id: Id<SomeEntity>
 }
 ```
 
