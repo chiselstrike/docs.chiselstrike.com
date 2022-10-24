@@ -58,7 +58,7 @@ output:
 Policy defined for label pii
 ```
 
-And now notice how the output of the `comments` endpoint changes.
+And now notice how the output of the `comments` route changes.
 
 If you invoke the `/dev/comments` endpoint with:
 
@@ -96,7 +96,7 @@ The `curl` command reports:
 ```
 
 The `pii` fields were anonymized!  It is not possible for any
-endpoint code to accidentally read `pii` data, eliminating human
+route code to accidentally read `pii` data, eliminating human
 errors from the process.
 
 Another transformation you can do is omitting a field altogether.  If you modify
@@ -108,7 +108,7 @@ labels:
     transform: omit
 ```
 
-your endpoints will not see the existence of any `@pii` fields:
+your routes will not see the existence of any `@pii` fields:
 
 ```bash
 curl -s localhost:8080/dev/comments
@@ -141,7 +141,7 @@ will return
 
 ## Policy Exceptions
 
-Here is how you can except the `comments` endpoint from automatic
+Here is how you can exempt the `comments` route from automatic
 data anonymization.  Please edit the file
 `my-backend/policies/pol.yml` like this:
 
@@ -154,8 +154,8 @@ labels:
 
 The `except_uri` key lets you specify a path that's exempt from the
 transformation policy being defined.  In this case, it matches exactly
-the `comments` endpoint.  But in general, the value can be a path
-prefix and even a regular expression; any matching endpoints will be
+the `comments` route.  But in general, the value can be a path
+prefix and even a regular expression; any matching routes will be
 exempt from the policy.
 
 If you now query the `/dev/comments` endpoint:
@@ -193,16 +193,16 @@ The `curl` command reports:
 }
 ```
 
-As you can see, this endpoint now operates with the raw, untransformed
+As you can see, this route now operates with the raw, untransformed
 data.
 
 ## Policies for Logged-in Users
 
 ChiselStrike supports [having users log into your dynamic
-website](./login.md).  It even lets you restrict endpoint access by
+website](./login.md).  It even lets you restrict route access by
 user.
 
-To restrict who can access the `comments` endpoint, please edit the
+To restrict who can access the `comments` route, please edit the
 file `my-backend/policies/pol.yml` like this:
 
 ```yaml title="my-backend/policies/pol.yml"
@@ -212,7 +212,7 @@ endpoints:
 ```
 
 This says that only the user `admin@example.com` can access the `/comments`
-endpoint.
+route.
 
 :::note
 We currently match `users` against the user's email -- the only field
@@ -223,10 +223,10 @@ evolve this aspect of our product.
 The `endpoints` section can have any number of `path` items, each
 affecting a different path prefix.  The `users` attribute is a regular
 expression that the logged-in user's email must match in order to access
-endpoints under the given path.
+routes under the given path.
 
 `path` values may overlap, in which case longer overrides shorter.
-When you attempt to access an endpoint, the longest specified prefix
+When you attempt to access a route, the longest specified prefix
 of its path dictates which users may access it.  Although multiple
 `path` entries may overlap, they must not be identical.
 
@@ -263,7 +263,7 @@ labels:
 The `match_login` transformation compares fields labeled with
 `protect` (if they are of AuthUser type) to the value of
 `loggedInUser()`.  When the field value doesn't match, the row is
-ignored.  So in this case, when endpoints read BlogComment entities,
+ignored.  So in this case, when a route reads BlogComment entities,
 they will see only the rows whose `author` matches the currently
 logged-in user.
 

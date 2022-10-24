@@ -15,9 +15,9 @@ export class Example extends ChiselEntity {
 }
 ```
 
-and endpoint generating a CRUD API for `Example`:
+and route generating a CRUD API for `Example`:
 
-```ts title="endpoints/examples.ts"
+```ts title="routes/examples.ts"
 import { Example } from '../models/Example';
 
 export default Example.crud();

@@ -17,7 +17,7 @@ Rather than roll our own OAuth implementations, we decided to rely on
 NextAuth and what it readily provides.  We have developed a
 ChiselStrike adapter for NextAuth; when configured to use this
 adapter, NextAuth will save the user data in your ChiselStrike
-backend, where your endpoints and policies can use it.
+backend, where your routes and policies can use it.
 
 As suggested in the adapter README, your frontend can tell
 ChiselStrike who's currently logged in by including a `ChiselUID`
@@ -28,8 +28,8 @@ NextAuth user ID.
 
 The ChiselStrike backend keeps track of your website's users via a
 builtin type called AuthUser.  When a user logs in for the first
-time, a new AuthUser entity is added.  And when an endpoint is
-executed, it has access to this builtin type.
+time, a new AuthUser entity is added.  And when a route is
+invoked, it has access to this builtin type.
 
 One interesting thing to do is have AuthUser-typed fields in your
 entities.  For example:
@@ -50,7 +50,7 @@ returns the AuthUser object corresponding to the user currently
 logged in (or `undefined` if no one is logged in).  This works, for
 example:
 
-```typescript title="my-backend/endpoints/example.ts"
+```typescript title="my-backend/routes/example.ts"
 import { BlogComment } from '../models/models.ts';
 import { RouteMap, loggedInUser, responseFromJson } from '@chiselstrike/api';
 

@@ -12,9 +12,9 @@ The `ChiselEntity` base class provides a `cursor()` method to obtain a
 operations, such as `filter()`, `take()`, `select()`, for building queries.
 
 For example, the `findOne()` example could be written using the cursor-based API
-as:
+as the following route:
 
-```ts title="my-backend/endpoints/find-one-cursor.ts"
+```ts title="my-backend/routes/find-one-cursor.ts"
 import { RouteMap, responseFromJson } from "@chiselstrike/api"
 import { User } from "../models/models"
 
@@ -26,7 +26,7 @@ export default new RouteMap()
     });
 ```
 
-You can invoke the `/dev/find-one-cursor` endpoint with:
+You can invoke the route with:
 
 ```bash
 curl -d '{ "email": "alice@mit.edu" }' localhost:8080/dev/find-one-cursor
@@ -84,9 +84,9 @@ const users = await User.cursor().filter({"email": "alice@mit.edu"});
 ## Notes On Transactions
 
 ChiselStrike currently implements implicit transactional evaluation. A
-transaction is created before ChiselStrike starts evaluating your endpoint and
-is automatically committed after your endpoint ends and we generate the HTTP
-response. In case your endpoint returns a stream, any database-related operation
+transaction is created before ChiselStrike starts evaluating your route and
+is automatically committed after your route ends and we generate the HTTP
+response. In case your route returns a stream, any database-related operation
 done within stream-generation code will happen outside of the transaction and
 can result in a crash.
 

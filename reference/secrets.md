@@ -32,7 +32,7 @@ with a ".env" suffix.
 
 Now those values are available as objects from your typescript code:
 
-```ts title="my-backend/endpoints/secrets.ts"
+```ts title="my-backend/routes/secrets.ts"
 import { RouteMap, getSecret, responseFromJson } from "@chiselstrike/api"
 
 export default new RouteMap()
@@ -47,7 +47,7 @@ export default new RouteMap()
     });
 ```
 
-Of course, this is an insecure demo, as we should never make an endpoint that
+Of course, this is an insecure demo, as we should never make an route that
 just offers up our secrets. But it's great for a demo!
 
 We can now ask for one of our secrets
