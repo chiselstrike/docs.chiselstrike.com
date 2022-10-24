@@ -50,8 +50,8 @@ export default new RouteMap()
     .get("/", () => { /* do GET work */ })
 ```
 
-The resulting endpoint path during development is `/dev/hello`. In this case,
-the string `hello` comes from the name of the TypeScript source file.
+The resulting URL path during development is `/dev/hello`. In this case, the
+string `hello` comes from the name of the TypeScript source file.
 
 When you append path segments to the initial path string argument:
 

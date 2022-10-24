@@ -15,13 +15,13 @@ export class BlogPost extends ChiselEntity {
 }
 ```
 
-and an endpoint for each entity:
+and a route for each entity:
 
-```ts title="endpoints/blog-authors.ts"
+```ts title="routes/blog-authors.ts"
 export default BlogAuthor.crud();
 ```
 
-```ts title="endpoints/blog-posts.ts"
+```ts title="routes/blog-posts.ts"
 export default BlogPost.crud();
 ```
 
