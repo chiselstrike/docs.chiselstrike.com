@@ -3,7 +3,7 @@
 These docs are built using [Docusaurus 2][docusaurus], a modern static website
 generator. They are deployed to a [Vercel project][vercel-project] for hosting.
 
-# Project structure
+## Project structure
 
 Top-level directories are:
 
@@ -145,7 +145,33 @@ requests from there. After creating a fork:
 1. After everyone is satisfied with the update, merge the pull request to the
    main branch.
 
+## Versioning reference docs
+
+The reference docs are [versioned] with the release of the ChiselStrike
+platform. This necessarily creates an entire copy of them in a version specific
+directory, which is patterned `reference_versioned_docs/version-x.y`.  This
+directory is created when a new version of the documentation is cut with the
+command `npm docusaurus docs:version:reference x.y`. The "next" version of the
+docs (in `reference`) is configured not published by doc
+
+If you are working on the latest version x.y of the reference documentation
+*after* it was cut, it's necessary to duplicate your updates to the files under
+both `reference` and `reference_versioned_docs/version-x.y`. The simplest way to
+do this is to do your work on the versioned docs, then copy the entire directory
+structure to the next version:
+
+```bash
+# Make your changes to the versioned files
+cd reference_versioned_docs/version-x.y
+# Then copy everything back to the next version
+cp -r * ../../reference
+cd ../..
+# Be sure to commit everything
+git add .
+```
+
 
 [docusaurus]: https://docusaurus.io/
 [vercel-project]: https://vercel.com/chiselstrike/docs-chiselstrike-com
 [rewrap]: https://marketplace.visualstudio.com/items?itemName=stkb.rewrap
+[versioned]: https://docusaurus.io/docs/versioning
