@@ -23,6 +23,8 @@ The source file for a route must `export default` a single `RouteMap` object or
 endpoint URL path for the route. The `RouteMap` defines which methods and
 relative paths ChiselStrike will respond to, and how it will respond.
 
+Read more about how [source file organization] works for more advanced cases.
+
 ## A simple route example
 
 `RouteMap` uses a builder-like API for defining which methods and relative paths
@@ -48,3 +50,6 @@ When `chiseld` runs during development with this file in place, it will create a
 route with the endpoint URL `http://localhost:8080/dev/hello`. When that URL is
 accessed with the HTTP GET method, it will return a plain text response
 containing the string "hello world".
+
+
+[source file organization]: ./advanced-route-definitions#source-file-organization

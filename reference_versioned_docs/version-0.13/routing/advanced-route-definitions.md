@@ -21,13 +21,6 @@ their resulting path patterns:
 | `books.ts` | `/books` |
 | `books/index.ts` | `/books` |
 | `books/chapters.ts` | `/books/chapters` |
-| `books/[id].ts` | `/books/[id]` |
-| `books/[id]/chapters.ts` | `/books/[id]/chapters` |
-
-Above, [id] refers to a file or directory with a variable name, which becomes
-part of the URL path when a request matches it. To specify a variable path
-component dynamically (instead of using files and directories), use a [path
-placeholder].
 
 :::note
 
@@ -52,6 +45,24 @@ argument in the RouteMap declaration appends `/baz` to that. As such, the
 handler function will be invoked when a request's URL path during development is
 `/dev/foo/bar/baz`.
 
+### Placeholders in file names
+
+Similar to how [placeholders] work when defining a RouteMap, you can name source
+files to indicate named placeholders that match variable values from a
+requests's URL path. Use file and directory names enclosed with square brackets
+to define these placeholders.
+
+| File under `routes` | Equivalent route with placeholders |
+| --- | --- |
+| `books/[id].ts` | `/books/:id` |
+| `books/[id]/chapters.ts` | `/books/:id/chapters` |
+| `books/[id]/chapters/[cid].ts` | `/books/:id/chapters/:cid` |
+
+With the above examples, the source files and directories named `[id]` and
+`[cid]` are equivalent in function to placeholder strings passed to RouteMap,
+and their runtime values can be read from `ChiselRequest` using the `params`
+property.
+
 ## Composition
 
 You can assemble a RouteMap using other nested RouteMaps using the `prefix()`
@@ -73,4 +84,4 @@ In this route, the URL path is still `/dev/foo/bar/baz` like the prior example.
 prefix of the RouteMap exported by `foo.ts`, and `baz` comes from the route path
 of the nested `barMap`.
 
-[path placeholder]: ./placeholders
+[placeholders]: ./placeholders
