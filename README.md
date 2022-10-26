@@ -3,7 +3,7 @@
 These docs are built using [Docusaurus 2][docusaurus], a modern static website
 generator. They are deployed to a [Vercel project][vercel-project] for hosting.
 
-# Project structure
+## Project structure
 
 Top-level directories are:
 
@@ -17,7 +17,7 @@ Top-level directories are:
 | `src/css` | Custom CSS |
 
 You can think of `home`, `reference`, `tutorials`, and `examples` as individual
-mini-sites that contribue a section to the documentation.  They each have their
+mini-sites that contribute a section to the documentation.  They each have their
 own `sidebars.js` configuration that determines its structure.
 
 ## Local development
@@ -62,7 +62,7 @@ requests from there. After creating a fork:
 
 ### Workflow
 
-1. Swtich to your main branch and sync with upstream:
+1. Switch to your main branch and sync with upstream:
 
    ```bash
    git checkout main
@@ -91,7 +91,7 @@ requests from there. After creating a fork:
    The server runs at http://localhost:3000/
 
 1. Make changes to the content. When you save a file, the local server should
-   autmoatically reload them. There are circumstances where the local server
+   automatically reload them. There are circumstances where the local server
    might get stuck and stop reloading - perform a browser reload to reset.
 
 1. Commit changes to the branch. Please keep each set of changes in separate
@@ -145,7 +145,33 @@ requests from there. After creating a fork:
 1. After everyone is satisfied with the update, merge the pull request to the
    main branch.
 
+## Versioning reference docs
+
+The reference docs are [versioned] with the release of the ChiselStrike
+platform. This necessarily creates an entire copy of them in a version specific
+directory, which is patterned `reference_versioned_docs/version-x.y`.  This
+directory is created when a new version of the documentation is cut with the
+command `npm docusaurus docs:version:reference x.y`. The "next" version of the
+docs (in `reference`) is configured not published by doc
+
+If you are working on the latest version x.y of the reference documentation
+*after* it was cut, it's necessary to duplicate your updates to the files under
+both `reference` and `reference_versioned_docs/version-x.y`. The simplest way to
+do this is to do your work on the versioned docs, then copy the entire directory
+structure to the next version:
+
+```bash
+# Make your changes to the versioned files
+cd reference_versioned_docs/version-x.y
+# Then copy everything back to the next version
+cp -r * ../../reference
+cd ../..
+# Be sure to commit everything
+git add .
+```
+
 
 [docusaurus]: https://docusaurus.io/
 [vercel-project]: https://vercel.com/chiselstrike/docs-chiselstrike-com
 [rewrap]: https://marketplace.visualstudio.com/items?itemName=stkb.rewrap
+[versioned]: https://docusaurus.io/docs/versioning
