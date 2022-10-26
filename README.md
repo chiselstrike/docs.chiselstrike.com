@@ -17,7 +17,7 @@ Top-level directories are:
 | `src/css` | Custom CSS |
 
 You can think of `home`, `reference`, `tutorials`, and `examples` as individual
-mini-sites that contribue a section to the documentation.  They each have their
+mini-sites that contribute a section to the documentation.  They each have their
 own `sidebars.js` configuration that determines its structure.
 
 ## Local development
@@ -62,7 +62,7 @@ requests from there. After creating a fork:
 
 ### Workflow
 
-1. Swtich to your main branch and sync with upstream:
+1. Switch to your main branch and sync with upstream:
 
    ```bash
    git checkout main
@@ -91,7 +91,7 @@ requests from there. After creating a fork:
    The server runs at http://localhost:3000/
 
 1. Make changes to the content. When you save a file, the local server should
-   autmoatically reload them. There are circumstances where the local server
+   automatically reload them. There are circumstances where the local server
    might get stuck and stop reloading - perform a browser reload to reset.
 
 1. Commit changes to the branch. Please keep each set of changes in separate
