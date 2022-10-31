@@ -3,36 +3,6 @@
 In this section we'll show how to move beyond simple CRUD requests, as shown in
 the [Getting started tutorial](/tutorials/getting-started/).
 
-# Customizing CRUD Further
-
-<!-- FIXME: move into extra chapter? -->
-
-CRUD generation is customizable; more detail and syntax around this and also
-security policy is coming soon but here is a lower-level example that forbids
-DELETE, POST, and PUT while wrapping the GET result with either `{"data":
-VALUE}` or `{"error": "message"}` depending on the result.
-
-<!-- FIXME: replace with class based alternates once available -->
-
-```ts title="my-backend/routes/comments-readonly.ts"
-import { crud, responseFromJson } from "@chiselstrike/api";
-import { BlogComment } from "../models/BlogComment";
-
-function createResponse(body: unknown, status: number): Response {
-    if (status < 400) {
-        return responseFromJson({ data: body["results"] }, status);
-    }
-    return responseFromJson({ error: body }, status);
-}
-
-export default crud(
-    BlogComment,
-    { write: false, createResponse }
-);
-```
-
-You may also be interested in the [Authentication](/reference/login) chapter.
-
 ## Full Custom Routes
 
 Being able to just get started very quickly and spawn a CRUD API is great, but
