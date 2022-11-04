@@ -147,7 +147,9 @@ const themeConfig = {
 
 const redirectOptions = {
   redirects: [
-    { to: '/tutorials/getting-started/', from: '/Intro/first' }
+    { to: '/tutorials/getting-started/', from: '/Intro/first' },
+    { to: '/reference/entity-ts-api/', from: '/reference/data-access' },
+    { to: '/reference/entity-ts-api/query-cursors', from: '/reference/cursors' },
   ]
 }
 

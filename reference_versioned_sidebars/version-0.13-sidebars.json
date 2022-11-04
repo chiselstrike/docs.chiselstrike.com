@@ -48,11 +48,26 @@
         "routing/entity-crud"
       ]
     },
+    {
+      "type": "category",
+      "label": "Entity TypeScript API",
+      "link": {
+        "type": "doc",
+        "id": "entity-ts-api/index"
+      },
+      "items": [
+        "entity-ts-api/create-data",
+        "entity-ts-api/read-data",
+        "entity-ts-api/update-data",
+        "entity-ts-api/delete-data",
+        "entity-ts-api/query-cursors",
+        "entity-ts-api/matching-entities",
+        "entity-ts-api/transactions"
+      ]
+    },
     "routes",
-    "data-access",
     "streaming",
     "debugging",
-    "cursors",
     "pol",
     "secrets",
     "versions",

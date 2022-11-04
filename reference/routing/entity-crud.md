@@ -110,9 +110,10 @@ TypeScript signature of the function is this:
 `status` is the HTTP status code that ChiselStrike would normally return to the
 caller.
 
-`body` is an object that contains the data to send to the caller and varies
-based on the type of route that was invoked. `createResponse` implementations
-typically iterate the properties of this object for serialization. For example:
+`body` is an object that contains the data to send to the caller. Its contents
+vary based on the type of route that was invoked. `createResponse`
+implementations typically iterate the properties of this object for
+serialization. For example:
 
 ```ts
 export default crud(

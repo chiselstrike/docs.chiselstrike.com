@@ -105,8 +105,7 @@ future. We do our own explicit error checking in this example.
 With this route example, we're now getting to know ChiselStrike's API and
 runtime better. Notice how we were able to parse the request under `POST` with
 our own custom validation, and then use the `build` API to construct an object
-that is then persisted with `save`.  We'll explain the use of the data model
-more in [Data Access](./data-access).
+that is then persisted with `save`.
 
 Finally, notice the `responseFromJson` convenience method, which takes a
 JavaScript object and serializes it into a `Response` ready to be returned.
