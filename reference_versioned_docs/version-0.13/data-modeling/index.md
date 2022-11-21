@@ -17,10 +17,12 @@ query entities in response to user activity in the app.
 
 ## TypeScript API {#typescript-api}
 
-Subclasses of `ChiselEntity` inherit an API that provides read and write access
-to use in your backend route code. This avoids the need for your route to make
-HTTP requests to the generated CRUD API, which is inefficient.
+Subclasses of `ChiselEntity` inherit a [TypeScript API] that provides read and
+write access to use in your backend [route] code. This avoids the need for your
+route to make HTTP requests to the generated CRUD API, which is inefficient.
 
 
 [crud-api]: ../entity-crud-api/
 [query-api]: ../entity-crud-api/filter-order-limit-query
+[TypeScript API]: ../entity-ts-api/
+[route]: ../routing/
