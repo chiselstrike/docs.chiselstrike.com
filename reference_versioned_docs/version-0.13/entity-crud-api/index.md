@@ -27,5 +27,5 @@ curl \
 :::
 
 
-[ChiselNow]: https://chiselstrike.com/#now
+[ChiselNow]: https://chiselstrike.com/now
 [entity-crud]: ../routing/entity-crud

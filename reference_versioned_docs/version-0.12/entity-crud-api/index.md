@@ -26,4 +26,4 @@ curl \
 :::
 
 
-[ChiselNow]: https://chiselstrike.com/#now
+[ChiselNow]: https://chiselstrike.com/now
