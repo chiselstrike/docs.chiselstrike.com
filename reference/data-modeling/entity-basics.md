@@ -39,8 +39,8 @@ subclasses:
 - Arrays of the above primitive types (e.g. `string[]`)
 - Nested arrays (e.g. `string[][]`)
 - `Id` generic type parameterized by an entity class (e.g. `Id<SomeEntity>`)
-  (see [Id type properties](#id-type-properties))
-- Other entity types (see [relationships])
+  (see [indirect relationships])
+- Other entity types (see [direct relationships])
 
 The following is a class that defines one of each supported type:
 
@@ -119,7 +119,8 @@ allowed. Refer to the section on [migration] for more information.
 
 
 [ts-optional]: https://www.typescriptlang.org/docs/handbook/2/objects.html#optional-properties
-[relationships]: ./relationships
+[indirect relationships]: ./relationships#indirect-relationships
+[direct relationships]: ./relationships#direct-relationships
 [strictPropertyInitialization]: https://www.typescriptlang.org/tsconfig#strictPropertyInitialization
 [definite-assignment]: https://www.typescriptlang.org/docs/handbook/2/classes.html#--strictpropertyinitialization
 [migration]: ./migration
