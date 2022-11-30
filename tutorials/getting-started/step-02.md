@@ -27,7 +27,6 @@ For any question, concerns, or early feedback, please contact us via email or Di
 [date-time] INFO - ChiselStrike server is ready 🚀
 [date-time] INFO - URL: http://127.0.0.1:8080
 [date-time] INFO - URL: http://[::1]:8080
-[date-time] INFO - Version "__chiselstrike" is ready
 [date-time] INFO - Version "dev" is ready
 ```
 
