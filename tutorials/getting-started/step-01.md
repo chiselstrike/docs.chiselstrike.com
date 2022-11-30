@@ -11,7 +11,7 @@ Change to the directory where you want to create the project. Run the following
 command:
 
 ```bash
-npx create-chiselstrike-app@0.13.1 my-backend
+npx create-chiselstrike-app@0.14.0 my-backend
 ```
 
 :::tip
@@ -64,18 +64,19 @@ Take a quick look at the parts of the project that are not standard nodejs:
 - **tsconfig.json**: This file contains the project's TypeScript configuration.
   For this tutorial, you will not modify this file.
 
-Open package.json and you will see that two ChiselStrike dependencies and one
-script are already added to the project.
+Open package.json and you will see that two ChiselStrike dependencies and two
+scripts are already added to the project.
 
 ```json title="package.json"
     "scripts": {
-        "dev": "chisel dev"
+        "dev": "chisel dev",
+        "type-check": "tsc"
     },
     "dependencies": {
-        "@chiselstrike/api": "0.13.1",
+        "@chiselstrike/api": "0.14.0",
     },
     "devDependencies": {
-        "@chiselstrike/cli": "0.13.1"
+        "@chiselstrike/cli": "0.14.0"
     }
 ```
 
