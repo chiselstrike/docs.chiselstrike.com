@@ -1,4 +1,7 @@
 ---
+title: ChiselStrike documentation
+description: Detailed documentation about ChiselStrike APIs and configuration
+keywords: [ChiselStrike, documentation, API]
 pagination_next: null
 ---
 

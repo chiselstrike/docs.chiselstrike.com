@@ -1,3 +1,9 @@
+---
+title: Entity TypeScript API
+description: The ChiselStrike entity TypeScript API provides CRUD operations for your route code.
+keywords: [ChiselStrike, documentation, TypeScript, API]
+---
+
 # Entity TypeScript API
 
 When writing backend [routes] to build an API for your app, it's common to

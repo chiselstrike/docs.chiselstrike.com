@@ -1,3 +1,8 @@
+---
+description: Learn about routes and the RouteMap object for writing backend endpoint code in TypeScript.
+keywords: [ChiselStrike, documentation, tutorial, route, RouteMap, TypeScript]
+---
+
 # Step 3: Understanding routes
 
 The sample route is built using a RouteMap object:

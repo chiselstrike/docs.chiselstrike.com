@@ -1,3 +1,8 @@
+---
+description: Learn about how to deploy a project to the ChiselStrike managed service by pushing to GitHub.
+keywords: [ChiselStrike, documentation, tutorial, deploy, GitHub]
+---
+
 # Step 8: Deploy to the ChiselStrike managed service
 
 In this tutorial so far, you've used the ChiselStrike CLI to build your routes

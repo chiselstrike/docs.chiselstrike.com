@@ -1,3 +1,8 @@
+---
+description: Learn about how to query entities using the automatic CRUD API.
+keywords: [ChiselStrike, documentation, tutorial, entity, query, CRUD, API]
+---
+
 # Step 6: Querying entities
 
 Most applications require the ability to query a dataset with filtering and

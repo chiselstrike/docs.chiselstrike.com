@@ -1,3 +1,8 @@
+---
+description: Learn about how to order and limit query results with the automatic CRUD API.
+keywords: [ChiselStrike, documentation, tutorial, query, order, limit, CRUD, API]
+---
+
 # Step 7: Ordering and limiting query results
 
 To sort the results of a query, use the `sort` parameter in the query string

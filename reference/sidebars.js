@@ -22,7 +22,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Entity CRUD API',
+      label: 'RESTful entity CRUD API',
       link: {
         type: 'doc',
         id: 'entity-crud-api/index',
