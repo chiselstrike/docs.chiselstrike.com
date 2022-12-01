@@ -44,6 +44,13 @@ const themeOptions = {
 
 /** @type {import('@docusaurus/theme-common').UserThemeConfig} */
 const themeConfig = {
+  metadata: [
+    {name: 'keywords', content: 'ChiselStrike, documentation, TypeScript'},
+    {name: 'og:type', content: 'website'},
+    {name: 'og:image', content: 'https://chiselstrike.com/open-graph/main.png'},
+    {name: 'twitter:site', content: '@ChiselStrike'},
+    {name: 'twitter:image', content: 'https://chiselstrike.com/open-graph/main.png'},
+  ],
   navbar: {
     title: 'ChiselStrike',
     logo: {
