@@ -1,3 +1,9 @@
+---
+title: Release notes
+description: ChiselStrike release notes
+keywords: [ChiselStrike, release notes, updates]
+---
+
 # Release notes
 
 ## 0.14 (November 29, 2022) {#0.14}

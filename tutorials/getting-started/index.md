@@ -1,4 +1,7 @@
 ---
+title: Getting started tutorial
+description: Get started with ChiselStrike with a follow-along tutorial.
+keywords: [ChiselStrike, documentation, tutorial]
 pagination_prev: null
 ---
 

@@ -1,3 +1,9 @@
+---
+title: Data modeling
+description: Use TypeScript classes to declare your data models with ChiselStrike.
+keywords: [ChiselStrike, documentation, data modeling, TypeScript]
+---
+
 # Data modeling
 
 Data modeling is the process of designing the structure and contents of

@@ -1,3 +1,8 @@
+---
+description: Learn about how to create an automatic CRUD API for an entity.
+keywords: [ChiselStrike, documentation, tutorial, entity, CRUD, API]
+---
+
 # Step 5: Entity CRUD operations
 
 ## Create a route for the entity

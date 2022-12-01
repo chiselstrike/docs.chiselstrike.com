@@ -1,3 +1,8 @@
+---
+description: Learn how to start the ChiselStrike local server (chiseld) for development and testing.
+keywords: [ChiselStrike, documentation, tutorial, chiseld]
+---
+
 # Step 2: Start the ChiselStrike local server
 
 After creating a project with `create-chiselstrike-app`, you can start building

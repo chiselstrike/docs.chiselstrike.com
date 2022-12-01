@@ -1,3 +1,8 @@
+---
+description: Learn how to create a project workspace to contain your code and configuration using create-chiselstrike-app.
+keywords: [ChiselStrike, documentation, tutorial, create-chiselstrike-app]
+---
+
 # Step 1: Create a project workspace
 
 Open a shell. Check the version of node to ensure that you're using at least

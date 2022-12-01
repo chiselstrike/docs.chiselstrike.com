@@ -1,3 +1,8 @@
+---
+description: Learn about how to model data with an entity in TypeScript.
+keywords: [ChiselStrike, documentation, tutorial, entity, data model, TypeScript]
+---
+
 # Step 4: Define an entity
 
 The routes you learned about in the previous step give you flexibility to

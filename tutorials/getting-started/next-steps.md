@@ -1,4 +1,6 @@
 ---
+description: Get started with ChiselStrike with a follow-along tutorial.
+keywords: [ChiselStrike, documentation, tutorial]
 pagination_next: null
 ---
 

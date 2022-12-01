@@ -1,6 +1,12 @@
+---
+title: Community
+description: Communities for interacting with ChiselStrike staff and other enthusiasts
+keywords: [ChiselStrike, community, email, discord, github]
+---
+
 # Community
 
-Please don't hesitate to reach out to us usnig one of these channels.
+Please don't hesitate to reach out to us using one of these channels.
 
 ## Email
 

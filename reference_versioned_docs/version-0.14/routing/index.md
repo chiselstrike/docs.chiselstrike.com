@@ -1,3 +1,9 @@
+---
+title: Routing API
+description: Write TypeScript code to build your own APIs over HTTP that implement backend logic.
+keywords: [ChiselStrike, documentation, TypeScript, route, RouteMap, HTTP, API]
+---
+
 # Routing API
 
 ChiselStrike allows you to write backend code that responds to HTTP requests.
