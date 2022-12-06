@@ -160,6 +160,11 @@ const redirectOptions = {
   ]
 }
 
+/** @type {import('@docusaurus/plugin-google-analytics').Options} */
+const gaOptions = {
+  trackingID: 'G-9EMEJKDZZX',
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const docusaurusConfig = {
   title: 'ChiselStrike documentation',
@@ -179,9 +184,10 @@ const docusaurusConfig = {
     [ 'content-docs', referencePluginOptions ],
     [ '@docusaurus/theme-classic', themeOptions ],
     [ '@docusaurus/plugin-client-redirects', redirectOptions ],
+    [ '@docusaurus/plugin-google-analytics', gaOptions ],
   ],
 
-  themeConfig: themeConfig
+  themeConfig: themeConfig,
 };
 
 module.exports = docusaurusConfig;
