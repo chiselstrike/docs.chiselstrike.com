@@ -152,12 +152,18 @@ const themeConfig = {
   },
 }
 
+/** @type {import('@docusaurus/plugin-client-redirects').Options} */
 const redirectOptions = {
   redirects: [
     { to: '/tutorials/getting-started/', from: '/Intro/first' },
     { to: '/reference/entity-ts-api/', from: '/reference/data-access' },
     { to: '/reference/entity-ts-api/query-cursors', from: '/reference/cursors' },
   ]
+}
+
+/** @type {import('@docusaurus/plugin-google-analytics').Options} */
+const gaOptions = {
+  trackingID: 'G-9EMEJKDZZX',
 }
 
 /** @type {import('@docusaurus/types').Config} */
@@ -179,9 +185,10 @@ const docusaurusConfig = {
     [ 'content-docs', referencePluginOptions ],
     [ '@docusaurus/theme-classic', themeOptions ],
     [ '@docusaurus/plugin-client-redirects', redirectOptions ],
+    [ '@docusaurus/plugin-google-analytics', gaOptions ],
   ],
 
-  themeConfig: themeConfig
+  themeConfig: themeConfig,
 };
 
 module.exports = docusaurusConfig;
