@@ -166,6 +166,11 @@ const gaOptions = {
   trackingID: 'G-9EMEJKDZZX',
 }
 
+/** @type {import('@docusaurus/plugin-google-gtag').Options} */
+const gtagOptions = {
+  trackingID: 'G-9EMEJKDZZX',
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const docusaurusConfig = {
   title: 'ChiselStrike documentation',
@@ -186,6 +191,7 @@ const docusaurusConfig = {
     [ '@docusaurus/theme-classic', themeOptions ],
     [ '@docusaurus/plugin-client-redirects', redirectOptions ],
     [ '@docusaurus/plugin-google-analytics', gaOptions ],
+    [ '@docusaurus/plugin-google-gtag', gtagOptions ],
   ],
 
   themeConfig: themeConfig,
