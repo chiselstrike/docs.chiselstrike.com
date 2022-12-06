@@ -152,6 +152,7 @@ const themeConfig = {
   },
 }
 
+/** @type {import('@docusaurus/plugin-client-redirects').Options} */
 const redirectOptions = {
   redirects: [
     { to: '/tutorials/getting-started/', from: '/Intro/first' },
