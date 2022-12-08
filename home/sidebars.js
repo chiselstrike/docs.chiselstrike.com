@@ -22,7 +22,6 @@ const sidebars = {
       href: '/reference/'
     },
     "release-notes",
-    "ongoing-work",
     "community",
   ],
 };
