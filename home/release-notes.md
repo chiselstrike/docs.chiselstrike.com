@@ -6,6 +6,17 @@ keywords: [ChiselStrike, release notes, updates]
 
 # Release notes
 
+## 0.15 (December 21, 2022) {#0.15}
+
+### API changes
+
+- New: `chisel generate` will generate a [TypeScript client
+  API](/reference/ts-client-api/) that performs CRUD operations on entities
+  while preserving typesafety. This API works with both web and nodejs where the
+  standard web fetch API is available.
+
+- Bug fixes for the experimental TypeScript policy API.
+
 ## 0.14 (November 29, 2022) {#0.14}
 
 ### API changes
