@@ -24,7 +24,7 @@ of your choosing. Run the following command while the ChiselStrike server is
 running on your machine:
 
 ```bash
-npx chisel generate [path/to/dir]
+npm exec chisel generate [path/to/dir]
 ```
 
 The location you provide should be somewhere within your web application's
