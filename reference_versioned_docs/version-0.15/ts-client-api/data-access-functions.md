@@ -257,7 +257,7 @@ const post: BlogPost = await chiselClient.posts.id("[YOUR-ID]").get()
 
 ```ts
 patch(
-    entity: Partial<E>,
+    entity: Partial<WithoutId<Entity>>,
     headers?: Headers | Record<string, string>,
 ): Promise<E>
 ```
