@@ -53,7 +53,7 @@ curl \
 ```
 
 Note that both referring and referred instances receive a new generated ID, with
-the author's ID nested inside the `author` field. They be fetched individually
+the author's ID nested inside the `author` field. They can be fetched individually
 using those IDs.
 
 ```bash
