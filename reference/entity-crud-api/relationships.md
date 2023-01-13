@@ -71,7 +71,7 @@ curl "http://host/dev/blog-authors/[GENERATED-AUTHOR-ID]"
 
 ```bash
 # Get the BlogPost instance
-curl "http://host/dev/blog-authors/[GENERATED-POST-ID]"
+curl "http://host/dev/blog-posts/[GENERATED-POST-ID]"
 ```
 
 ```json
