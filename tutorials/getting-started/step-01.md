@@ -16,7 +16,7 @@ Change to the directory where you want to create the project. Run the following
 command:
 
 ```bash
-npx create-chiselstrike-app@0.14.0 my-backend
+npx create-chiselstrike-app@0.15.0 my-backend
 ```
 
 :::tip
@@ -78,10 +78,10 @@ scripts are already added to the project.
         "type-check": "tsc"
     },
     "dependencies": {
-        "@chiselstrike/api": "0.14.0",
+        "@chiselstrike/api": "0.15.0",
     },
     "devDependencies": {
-        "@chiselstrike/cli": "0.14.0"
+        "@chiselstrike/cli": "0.15.0"
     }
 ```
 
