@@ -14,7 +14,6 @@ In this tutorial, you will learn how to:
 - Use the ChiselStrike CLI to develop locally.
 - Define an entity with TypeScript.
 - Use the ChiselStrike REST API to perform basic CRUD operations on the entity.
-- Deploy the API to the ChiselStrike managed cloud service.
 
 We recommend following this tutorial on MacOS or Linux. It will also work on
 Windows under WSL.

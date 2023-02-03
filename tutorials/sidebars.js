@@ -21,7 +21,6 @@ const sidebars = {
         'getting-started/step-05',
         'getting-started/step-06',
         'getting-started/step-07',
-        'getting-started/step-08',
         'getting-started/next-steps',
       ]
     },
