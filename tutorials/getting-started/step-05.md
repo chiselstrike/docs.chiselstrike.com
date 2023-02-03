@@ -31,10 +31,9 @@ endpoint URL `http://localhost:8080/dev/posts` to perform CRUD operations on the
 
 The generated API makes use of an underlying database without exposing any of
 its implementation details. When developing locally, `chiseld` uses SQLite
-internally. When deploying a project to the ChiselStrike managed cloud service,
-it uses a Postgres-compatible database. While the behavior of the REST API
-should not change, `chiseld` running locally with SQLite does not scale or
-perform in the same way as the managed cloud service.
+internally. While the behavior of the REST API should not change, `chiseld`
+running locally with SQLite does not scale or perform in the same way as the
+managed cloud service.
 
 :::
 
